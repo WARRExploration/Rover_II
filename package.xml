@@ -1,31 +1,31 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>Exploration_Rover_I</name>
+  <name>exploration_rover_i</name>
   <version>0.0.0</version>
   <description>The Exploration_Rover_I package</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="exploration@todo.todo">exploration</maintainer>
+  <maintainer email="exploration@warr.de">exploration</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>TODO</license>
+  <license>BSD</license>
 
 
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/Exploration_Rover_I</url> -->
+  <url type="website">http://www.warr.de/de/exploration</url>
 
 
   <!-- Author tags are optional, multiple are allowed, one per tag -->
   <!-- Authors do not have to be maintainers, but could be -->
   <!-- Example: -->
-  <!-- <author email="jane.doe@example.com">Jane Doe</author> -->
+  <author email="markus.goegele@hotmail.com">Markus Gögele (AdronTech)</author>
 
 
   <!-- The *depend tags are used to specify dependencies -->
@@ -48,6 +48,9 @@
   <!--   <test_depend>gtest</test_depend> -->
   <!-- Use doc_depend for packages you need only for building documentation: -->
   <!--   <doc_depend>doxygen</doc_depend> -->
+  <depend>roscpp</depend>
+  <depend>serial</depend>
+  <depend>std_msgs</depend>
   <buildtool_depend>catkin</buildtool_depend>
 
 
