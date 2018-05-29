@@ -15,10 +15,15 @@ catkin_package(
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  include
 )
 
 add_executable(serial_example_node src/serial_example_node.cpp)
+add_executable(motor_driver_test src/motor_driver_test.cpp src/motor_driver.cpp)
 
 target_link_libraries(serial_example_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(motor_driver_test
   ${catkin_LIBRARIES}
 )
