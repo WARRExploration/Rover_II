@@ -61,7 +61,8 @@ void keyLoop()
 
     while (ros::ok())
     {
-        printf("% 4d\t% 4d\t% 4d\t% 4d\n", values[3], values[2], values[1], values[0]);
+        printf("\r% 6d\t% 6d\t% 6d\t% 6d\t\t", values[3], values[2], values[1], values[0]);
+        fflush(stdout);
 
         // get the next event from the keyboard
         if (read(kfd, &c, 1) < 0)

@@ -31,14 +31,6 @@ include_directories(
 )
 
 add_executable(
-  serial_example_node
-    src/serial_example_node.cpp
-)
-target_link_libraries(serial_example_node
-  ${catkin_LIBRARIES}
-)
-
-add_executable(
   motor_driver_test
     src/motor_driver_test.cpp
     src/motor_driver.cpp
