@@ -1,0 +1,6 @@
+# Max absolute ramp velocity [rpm]
+4,15000
+# Max current [mA]
+6,5000
+# Acceleration [rpm/s]
+11,10000
