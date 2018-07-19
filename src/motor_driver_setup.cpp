@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <string>
+#include <boost/algorithm/string.hpp>
 
 #define BAUDRATE 9600
 #define DEV_1 "/dev/ttyUSB0"
@@ -25,15 +26,24 @@ Parameters:
       3. Value for parameter to be set
 *****/
 
+INT getParameter(std::string input, INT position)
+{
+	std::vector<std::string> strs;
+	boost::split(strs, input, boost::is_any_of(","));
+	return std::stoi(strs.at(position));
+	
+}
+
 int main (int argc, char** argv){
 	
-	UCHAR address = 0;
+	UCHAR serialAddress = 0;
+	std::string deviceAddress;
 	std::string dev[] = {"","","",""};
-	motor_driver[3] m;
-	std::ifstream setupFile ("setup.txt");
+	motor_driver motor;
 	std::string line;
 	std::vector<int> type;
 	std::vector<int> value;
+	std::vector<int> command;
 	
 	UCHAR responseAddress;
 	UCHAR responseStatus;
@@ -41,10 +51,16 @@ int main (int argc, char** argv){
 
 	INT i, j;
 	
-	if (argc == 1)
+	if (argc != 3)
 	{
-		address = static_cast<UCHAR> argv[1]);
+		std::cerr << "ERROR: The program needs exactly three input arguments: \n\t1. Device address (e.g. /dev/ttyUSB1)\n\t2. Serial address for RS485\n\t3. File name to read" << std::endl;
+		return -1;	
 	}
+	
+	deviceAddress = argv[1];
+	serialAddress = atoi(argv[2]);
+	std::ifstream setupFile (argv[3]);
+	
 	
 	/* Read lines of setup file and store data in "type" and "value" arrays
 	   First number defines type of axis parameter, second number is the value to be written
@@ -58,60 +74,35 @@ int main (int argc, char** argv){
 		while (getline(setupFile,line))
 		{
 			// Ignore all lines that start with '#'
-			if (line.at(0) != '#')
+			if (line.at(0) != '#' || line.at(0) != ' ')
 			{
 				//std::cout << line.substr(0,line.find_first_of(',')) << "\t";
 				//std::cout << line.substr(line.find_first_of(',')+1, line.size()) << std::endl;
-				type.push_back(std::stoi(line.substr(0,line.find_first_of(','))));
-				value.push_back(std::stoi(line.substr(line.find_first_of(',')+1, line.size())));
+				//type.push_back(std::stoi(line.substr(0,line.find_first_of(','))));
+				//value.push_back(std::stoi(line.substr(line.find_first_of(',')+1, line.size())));
+				command.push_back(getParameter(line, 0));
+				type.push_back(getParameter(line, 1));
+				value.push_back(getParameter(line, 2));				
 			}
 		}
 		setupFile.close();
 	}
 
-
-	switch (address)
+	try 
 	{
-		case MODULE_1:
-			dev[0] = DEV_1;
-			break;
-		case MODULE_2:
-			dev[0] = DEV_2;
-			break;
-		case MODULE_3:
-			dev[0] = DEV_3;
-			break;
-		case MODULE_4:
-			dev[0] = DEV_4;
-			break;
-		default:
-			dev[0] = DEV_1;
-			dev[1] = DEV_2;
-			dev[2] = DEV_3;
-			dev[3] = DEV_4;
+		motor.init(dev, BAUDRATE);
+	}
+	catch (serial::IOException &e)
+	{
+		cerr << "Unhandled Exception: " << e.what() << endl; 
 	}
 	
-
-	i = 0;
-	while (dev[i] != "")
+	for (j=0; j<type.size(); j++)
 	{
-		printf("Module %d\n", i+1);
-		m[i].init(dev, BAUDRATE);
-		
-		for (j=0; j<type.size(); j++)
-		{
-			// SAP
-			m[i].SendCmd(address, TMCL_SAP, type[j], 0, value[j]);
-			m[i].GetResult(&responseAddress, &responseStatus, &responseValue);
-			printf("Address: %d, Status: %d, Value %d\n", responseAddress, responseStatus, responseValue);
+		motor.SendCmd(serialAddress, command[j], type[j], 0, value[j]);
+		motor.GetResult(&responseAddress, &responseStatus, &responseValue);
+		printf("Address: %d, Status: %d, Value %d\n", responseAddress, responseStatus, responseValue);
 
-			// STAP
-			m[i].SendCmd(address, TMCL_STAP, type[j], 0, 0);
-			m[i].GetResult(&responseAddress, &responseStatus, &responseValue);
-			printf("Address: %d, Status: %d, Value %d\n", responseAddress, responseStatus, responseValue);
-		}
-		
-		i++;
 	}
 	
 	return 0;
