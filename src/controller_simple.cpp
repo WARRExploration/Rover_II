@@ -22,6 +22,17 @@ void quit(int sig)
     exit(0);
 }
 
+void set_motor(int address, int value)
+{
+    values[address - 1] = value;
+
+    exploration_rover_i::motor_ror msg;
+    msg.address = address;
+    msg.value = (address > 2) ? -values[address - 1] : values[address - 1];
+
+    pub.publish(msg);
+}
+
 int main(int argc, char **argv)
 {
     memset(values, 0, sizeof(values));
@@ -75,65 +86,56 @@ void keyLoop()
         {
         case 'q':
             for (int i = 0; i < 4; i++)
-                values[i] += 100;
+                set_motor(i + 1, values[i] + 100);
             break;
         case 'a':
             for (int i = 0; i < 4; i++)
-                values[i] = 0;
+                set_motor(i + 1, 0);
             break;
         case 'y':
             for (int i = 0; i < 4; i++)
-                values[i] -= 100;
+                set_motor(i + 1, values[i] - 100);
             break;
 
         case 'w':
-            values[3] += 100;
+            set_motor(4, values[3] + 100);
             break;
         case 's':
-            values[3] = 0;
+            set_motor(4, 0);
             break;
         case 'x':
-            values[3] -= 100;
+            set_motor(4, values[3] - 100);
             break;
 
         case 'e':
-            values[2] += 100;
+            set_motor(3, values[2] + 100);
             break;
         case 'd':
-            values[2] = 0;
+            set_motor(3, 0);
             break;
         case 'c':
-            values[2] -= 100;
+            set_motor(3, values[2] - 100);
             break;
 
         case 'r':
-            values[1] += 100;
+            set_motor(2, values[1] + 100);
             break;
         case 'f':
-            values[1] = 0;
+            set_motor(2, 0);
             break;
         case 'v':
-            values[1] -= 100;
+            set_motor(2, values[1] - 100);
             break;
 
         case 't':
-            values[0] += 100;
+            set_motor(1, values[0] + 100);
             break;
         case 'g':
-            values[0] = 0;
+            set_motor(1, 0);
             break;
         case 'b':
-            values[0] -= 100;
+            set_motor(1, values[0] - 100);
             break;
-        }
-
-        for (int i = 0; i < 4; i++)
-        {
-            exploration_rover_i::motor_ror msg;
-            msg.address = i + 1;
-            msg.value = (i > 1) ? -values[i] : values[i];
-
-            pub.publish(msg);
         }
     }
 

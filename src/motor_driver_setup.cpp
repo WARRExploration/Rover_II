@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <boost/algorithm/string.hpp>
+#include <boost/lexical_cast.hpp>
 
 #define BAUDRATE 9600
 #define DEV_1 "/dev/ttyUSB0"
@@ -30,12 +31,12 @@ INT getParameter(std::string input, INT position)
 {
 	std::vector<std::string> strs;
 	boost::split(strs, input, boost::is_any_of(","));
-	return std::stoi(strs.at(position));
-	
+	return boost::lexical_cast<int>(strs.at(position));
+
 }
 
 int main (int argc, char** argv){
-	
+
 	UCHAR serialAddress = 0;
 	std::string deviceAddress;
 	std::string dev[] = {"","","",""};
@@ -44,24 +45,24 @@ int main (int argc, char** argv){
 	std::vector<int> type;
 	std::vector<int> value;
 	std::vector<int> command;
-	
+
 	UCHAR responseAddress;
 	UCHAR responseStatus;
 	INT responseValue;
 
 	INT i, j;
-	
+
 	if (argc != 3)
 	{
 		std::cerr << "ERROR: The program needs exactly three input arguments: \n\t1. Device address (e.g. /dev/ttyUSB1)\n\t2. Serial address for RS485\n\t3. File name to read" << std::endl;
-		return -1;	
+		return -1;
 	}
-	
+
 	deviceAddress = argv[1];
-	serialAddress = atoi(argv[2]);
+	serialAddress = boost::lexical_cast<int>(argv[2]);
 	std::ifstream setupFile (argv[3]);
-	
-	
+
+
 	/* Read lines of setup file and store data in "type" and "value" arrays
 	   First number defines type of axis parameter, second number is the value to be written
 	   Example:
@@ -82,21 +83,21 @@ int main (int argc, char** argv){
 				//value.push_back(std::stoi(line.substr(line.find_first_of(',')+1, line.size())));
 				command.push_back(getParameter(line, 0));
 				type.push_back(getParameter(line, 1));
-				value.push_back(getParameter(line, 2));				
+				value.push_back(getParameter(line, 2));
 			}
 		}
 		setupFile.close();
 	}
 
-	try 
+	try
 	{
-		motor.init(dev, BAUDRATE);
+		motor.init(deviceAddress, BAUDRATE);
 	}
 	catch (serial::IOException &e)
 	{
-		cerr << "Unhandled Exception: " << e.what() << endl; 
+		std::cerr << "Unhandled Exception: " << e.what() << std::endl;
 	}
-	
+
 	for (j=0; j<type.size(); j++)
 	{
 		motor.SendCmd(serialAddress, command[j], type[j], 0, value[j]);

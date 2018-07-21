@@ -2,11 +2,14 @@ cmake_minimum_required(VERSION 2.8.3)
 project(exploration_rover_i)
 
 find_package(catkin REQUIRED COMPONENTS
+  cmake_modules
   roscpp
   serial
   std_msgs
   message_generation
 )
+
+find_package(TinyXML REQUIRED)
 
 add_message_files(
   FILES
@@ -23,11 +26,16 @@ catkin_package(
     serial
     std_msgs
     message_runtime
+  INCLUDE_DIRS
+    include
+  DEPENDS
+    TinyXML
 )
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
   include
+  ${TinyXML_INCLUDE_DIRS}
 )
 
 add_executable(
@@ -44,6 +52,7 @@ add_executable(
     src/motor_driver_ros.cpp
     src/motor_driver.cpp
 )
+
 target_link_libraries(motor_driver_ros
   ${catkin_LIBRARIES}
 )
@@ -53,5 +62,14 @@ add_executable(
     src/controller_simple.cpp
 )
 target_link_libraries(controller_simple
+  ${catkin_LIBRARIES}
+)
+
+add_executable(
+  motor_driver_setup
+    src/motor_driver_setup.cpp
+    src/motor_driver.cpp
+)
+target_link_libraries(motor_driver_setup
   ${catkin_LIBRARIES}
 )
