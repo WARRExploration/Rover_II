@@ -1,7 +1,9 @@
 <launch>
     <node name="camera" pkg="ueye" type="stereo" output="screen">
         <param name="auto_exposure" value="true" type="bool" />
-        <param name="frame_rate" value="20" type="double"/>
+        <param name="frame_rate" value="20" type="double" />
+        <param name="lCameraId" value="1" type="int" />
+        <param name="rCameraId" value="2" type="int" />
     </node>
 
     <node name="web_video_server" pkg="web_video_server" type="web_video_server" output="screen">
