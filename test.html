@@ -12,8 +12,8 @@
     // -----------------
 
     var ros = new ROSLIB.Ros({
-      // url: 'ws://warr-rover.lrt.mw.tum.de:9090'
-      url: 'ws://10.0.0.1:9090'
+      url: 'ws://warr-rover.lrt.mw.tum.de:9090'
+      // url: 'ws://10.0.0.1:9090'
     });
 
     ros.on('connection', function () {
@@ -75,28 +75,31 @@
 </head>
 
 <body>
-    <div style="display: none;">
-  <h1>Simple roslib Example</h1>
-  <p>Check your Web Console for output.</p>
+  <div style="display: none;">
+    <h1>Simple roslib Example</h1>
+    <p>Check your Web Console for output.</p>
     <input type="range" min="-1500" max="1500" value="0" class="slider" id="myRange" step="100">
     <span id="demo"></span>
 
     <input type="text" id="test">
   </div>
   <div style="display: flex; ">
-    <!-- <div>
-            <img src="http://warr-rover.lrt.mw.tum.de:8080/stream?topic=/left/image_raw&quality=30&width=500&height=500" style="width: 100%;">
-        </div>
-        <div>
-            <img src="http://warr-rover.lrt.mw.tum.de:8080/stream?topic=/right/image_raw&quality=30&width=500&height=500" style="width: 100%;">
-        </div> -->
 
     <div style="flex-grow: 1;">
+      <img src="http://warr-rover.lrt.mw.tum.de:8080/stream?topic=/left/image_raw&quality=30&width=500&height=400" style="width: 100%;">
+    </div>
+    <div style="flex-grow: 1;">
+      <img src="http://warr-rover.lrt.mw.tum.de:8080/stream?topic=/right/image_raw&quality=30&width=500&height=400" style="width: 100%;">
+    </div>
+
+
+
+    <!-- <div style="flex-grow: 1;">
         <img src="http://10.0.0.1:8080/stream?topic=/left/image_raw&quality=30&width=500&height=400" style="width: 100%;">
     </div>
     <div style="flex-grow: 1;">
       <img src="http://10.0.0.1:8080/stream?topic=/right/image_raw&quality=30&width=500&height=400" style="width: 100%;">
-    </div>
+    </div> -->
 
   </div>
 
