@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(exploration_rover_i)
 
+add_compile_options(-std=c++11)
+
 find_package(catkin REQUIRED COMPONENTS
   cmake_modules
   roscpp
@@ -14,6 +16,7 @@ find_package(TinyXML REQUIRED)
 add_message_files(
   FILES
   motor_ror.msg
+  motor_info.msg
 )
 
 generate_messages(

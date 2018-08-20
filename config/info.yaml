@@ -1,0 +1,6 @@
+info_framerate: 20
+info_adresses: [1, 2, 3, 4]
+infos: [
+  3 # actual speed
+  # 150 # actual current
+]

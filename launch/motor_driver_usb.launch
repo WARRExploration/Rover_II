@@ -2,20 +2,24 @@
     <node name="motor_driver_usb_0" pkg="exploration_rover_i" type="motor_driver_ros" output="screen">
         <param name="mode" value="usb" type="str" />
         <param name="device" value="/dev/ttyACM0" type="str" />
+        <rosparam command="load" file="$(find exploration_rover_i)/config/info.yaml" />
     </node>
 
     <node name="motor_driver_usb_1" pkg="exploration_rover_i" type="motor_driver_ros" output="screen">
         <param name="mode" value="usb" type="str" />
         <param name="device" value="/dev/ttyACM1" type="str" />
+        <rosparam command="load" file="$(find exploration_rover_i)/config/info.yaml" />
     </node>
 
     <node name="motor_driver_usb_2" pkg="exploration_rover_i" type="motor_driver_ros" output="screen">
         <param name="mode" value="usb" type="str" />
         <param name="device" value="/dev/ttyACM2" type="str" />
+        <rosparam command="load" file="$(find exploration_rover_i)/config/info.yaml" />
     </node>
 
     <node name="motor_driver_usb_3" pkg="exploration_rover_i" type="motor_driver_ros" output="screen">
         <param name="mode" value="usb" type="str" />
         <param name="device" value="/dev/ttyACM3" type="str" />
+        <rosparam command="load" file="$(find exploration_rover_i)/config/info.yaml" />
     </node>
 </launch>
