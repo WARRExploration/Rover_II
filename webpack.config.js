@@ -11,6 +11,14 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          // name: utils.assetsPath('fo[name].[hash:7].[ext]')
+        }
+      },
+      {
         test: /\.css$/,
         use: [
           'vue-style-loader',
@@ -67,10 +75,6 @@ module.exports = {
           name: '[name].[ext]?[hash]'
         }
       },
-      {
-        test: /\.(png|woff|woff2|eot|ttf)$/,
-        loader: 'file-loader',
-      }
     ]
   },
   resolve: {

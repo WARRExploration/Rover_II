@@ -1,18 +1,17 @@
 <template>
 
-    <tabs>
+    <tabs :class="{hide: config.fullscreen}">
       <tab name="Cameras">
         <div style="display: flex; width: 100%;">
-          <CameraStream style="flex-grow: 1;" :src="url + '/stream?topic=/left/image_raw&quality=30&width=500&height=400'"></CameraStream>
-          <CameraStream style="flex-grow: 1;" :src="url + '/stream?topic=/right/image_raw&quality=30&width=500&height=400'"></CameraStream>
-          <CameraStream style="flex-grow: 1;" :src="url + '/stream?topic=/disparity_image&quality=30&width=500&height=400'"></CameraStream>
+          <CameraStream style="flex-grow: 1;" :src="'http://' + config.url + ':8080/stream?topic=/left/image_raw&quality=30&width=500&height=400'"></CameraStream>
+          <CameraStream style="flex-grow: 1;" :src="'http://' + config.url + ':8080/stream?topic=/right/image_raw&quality=30&width=500&height=400'"></CameraStream>
+          <!-- <CameraStream style="flex-grow: 1;" :src="'http://' + config.url + ':8080/stream?topic=/disparity_image&quality=30&width=500&height=400'"></CameraStream> -->
         </div>
       </tab>
 
       <tab name="Motors">
         <div style="display: flex; width: 100%;">
           <MotorSlider v-for="motor in motors" :key="motor" :address="motor" style="flex-grow: 1;"></MotorSlider>
-          <MotorSlider :address="motor" style="flex-grow: 1;"></MotorSlider>
         </div>
       </tab>
     </tabs>
@@ -32,7 +31,7 @@ Vue.component("CameraStream", CameraStream);
 Vue.component("MotorSlider", Motor);
 
 export default {
-  props: ["url"],
+  props: ["config"],
   data() {
     return {
       motors: [1, 2, 3, 4]
@@ -55,6 +54,10 @@ export default {
   margin: 0;
   border-right: #0a243f solid 0.3em;
   background: #333;
+}
+
+.hide .tabs-component-tabs{
+  display: none;
 }
 
 .tabs-component-tab {
