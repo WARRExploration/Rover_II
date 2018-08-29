@@ -3,8 +3,7 @@
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
         <AppHeader v-if="!config.fullscreen" :config="config" title="WARR Exploration - TelOp" ></AppHeader>
         <AppBody :config="config" style="flex-grow: 1;"></AppBody>
-        {{config.fullscreen}}
-    </div>
+      </div>
 </template>
 
 <script>
@@ -61,7 +60,7 @@ export default {
     document.addEventListener(
       "keydown",
       function(zEvent) {
-        if (zEvent.ctrlKey && zEvent.altKey && zEvent.code === "KeyF") {
+        if (zEvent.ctrlKey && zEvent.shiftKey && zEvent.code === "KeyF") {
           this.config.fullscreen = !this.config.fullscreen;
 
           if (this.config.fullscreen) {

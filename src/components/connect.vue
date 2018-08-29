@@ -57,6 +57,7 @@ button {
   border: 0;
   padding: 0;
   margin: 1em;
+  outline: none;
 }
 
 button.active {
