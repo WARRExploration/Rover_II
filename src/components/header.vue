@@ -20,7 +20,7 @@ export default {
 <style lang="css" scoped>
 header {
   display: flex;
-  height: 150px;
+  height: 15vh;
   background: #333;
   border-bottom: #0a243f solid 0.3em;
   align-items: center;
