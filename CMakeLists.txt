@@ -76,3 +76,18 @@ add_executable(
 target_link_libraries(motor_driver_setup
   ${catkin_LIBRARIES}
 )
+
+add_executable(
+  usbreset
+    src/usbreset.c
+)
+
+add_executable(
+  linear_motor_driver
+    src/linear_motor_driver_ros.cpp
+    src/linear_motor_driver.cpp
+)
+target_link_libraries(linear_motor_driver
+  ${catkin_LIBRARIES}
+)
+
