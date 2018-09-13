@@ -4,9 +4,9 @@ static int r = 5;
 static int g = 3;
 static int b = 6;
 
-static int 200r = 1;
-static int 200g = 2;
-static int 200b = 3;
+static int r200 = 9;
+static int g200 = 10;
+static int b200 = 11;
 
 bool COUNTER = 0;
 
@@ -18,12 +18,16 @@ static String noBATTERY = "<Battery missing>\n";
 
 void setup() {
   //Serial.begin(9600);
-  Serial.begin(117000);
+  Serial.begin(115200);
   
   pinMode(r, OUTPUT);
   pinMode(g, OUTPUT);
   pinMode(b, OUTPUT);
-  
+
+  pinMode(r200, OUTPUT);
+  pinMode(g200, OUTPUT);
+  pinMode(b200, OUTPUT);
+    
   analogWrite(r, 255);
   analogWrite(g, 255);
   analogWrite(b, 255);
@@ -74,7 +78,7 @@ void loop() {
   while(Serial.available() > 0) {
     //menü
       String READ_DATA;//[LINE_BUF_SIZE];
-      READ_DATA = Serial.readString();
+      READ_DATA = Serial.readStringUntil('\n');
       Serial.println(READ_DATA+"\n");
 
       String READ_DATA_CLEAR = trimSPACE(READ_DATA);
@@ -84,7 +88,7 @@ void loop() {
       int INDEX_2 = READ_DATA_CLEAR.indexOf('-', INDEX_1 + 1);
       int INDEX_3 = READ_DATA_CLEAR.indexOf('-', INDEX_2 + 1);
       //Serial.println(READ_DATA);
-      
+ 
       int PARAMETER_1 = 0;
       int PARAMETER_2 = 0;
       int PARAMETER_3 = 0;
@@ -95,7 +99,7 @@ void loop() {
       PARAMETER_2 = (READ_DATA_CLEAR.substring(INDEX_2 + 1, INDEX_3)).toInt();
       PARAMETER_3 = (READ_DATA_CLEAR.substring(INDEX_3 + 1)).toInt();
       
-      //Serial.println(COMMAND + PARAMETER_1);
+      Serial.println(COMMAND + ":" + PARAMETER_1);
 
         if(COMMAND == "temp") {
           //Serial.println("temp");
@@ -187,22 +191,41 @@ void loop() {
 
         //200€ Lampe
         else if(COMMAND == "10") {
-          digitalWrite(pin, LOW);
+          if(PARAMETER_1 == NULL) PARAMETER_1 = 255;
+          Serial.print("param: ");
+          Serial.println(PARAMETER_1);
+          analogWrite(r200, PARAMETER_1);
+          PARAMETER_1 = NULL;
+        }
+        else if(COMMAND == "100") {
+          digitalWrite(r200, LOW);
         }
         else if(COMMAND == "101") {
-          digitalWrite(pin, HIGH);
+          digitalWrite(r200, HIGH);
         }
+        
         else if(COMMAND == "11") {
-          digitalWrite(pin, LOW);
+          if(PARAMETER_1 == NULL) PARAMETER_1 = 255;
+          analogWrite(g200, PARAMETER_1);
+          PARAMETER_1 = NULL;
+        }
+        else if(COMMAND == "110") {
+          digitalWrite(g200, LOW);
         }
         else if(COMMAND == "111") {
-          digitalWrite(pin, HIGH);
+          digitalWrite(g200, HIGH);
         }
+        
         else if(COMMAND == "12") {
-          digitalWrite(pin, LOW);
+          if(PARAMETER_1 == NULL) PARAMETER_1 = 255;
+          analogWrite(b200, PARAMETER_1);
+          PARAMETER_1 = NULL;
+        }
+        else if(COMMAND == "120") {
+          digitalWrite(b200, LOW);
         }
         else if(COMMAND == "121") {
-          digitalWrite(pin, HIGH);
+          digitalWrite(b200, HIGH);
         }
         
         //help
@@ -307,4 +330,3 @@ float VOLTAGE_CHECK(int PORT, float Rm, float Rv, float a, float b, int VERBOUS)
   return SPG; 
   
 }
-

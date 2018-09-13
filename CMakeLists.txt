@@ -15,7 +15,7 @@ find_package(TinyXML REQUIRED)
 
 add_message_files(
   FILES
-  motor_ror.msg
+  tcmc.msg
   motor_info.msg
 )
 
@@ -91,3 +91,10 @@ target_link_libraries(linear_motor_driver
   ${catkin_LIBRARIES}
 )
 
+add_executable(
+  power_board
+    src/power_board_ros.cpp
+)
+target_link_libraries(power_board
+  ${catkin_LIBRARIES}
+)

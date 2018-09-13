@@ -1,5 +1,6 @@
 #include "ros/ros.h"
-#include <exploration_rover_i/motor_ror.h>
+#include <motor_driver.h>
+#include <exploration_rover_i/tcmc.h>
 #include <signal.h>
 #include <termios.h>
 #include <stdio.h>
@@ -26,8 +27,11 @@ void set_motor(int address, int value)
 {
     values[address - 1] = value;
 
-    exploration_rover_i::motor_ror msg;
+    exploration_rover_i::tcmc msg;
     msg.address = address;
+    msg.command = TMCL_ROR;
+    msg.type = 0;
+    msg.motor = 0;
     msg.value = (address > 2) ? -values[address - 1] : values[address - 1];
 
     pub.publish(msg);
@@ -42,7 +46,7 @@ int main(int argc, char **argv)
 
     signal(SIGINT, quit);
 
-    pub = nh.advertise<exploration_rover_i::motor_ror>("motor_driver", 20);
+    pub = nh.advertise<exploration_rover_i::tcmc>("motor_driver", 20);
     boost::thread my_thread(keyLoop);
 
     ros::spin();

@@ -1,6 +1,6 @@
 #include <motor_driver.h>
 #include "ros/ros.h"
-#include <exploration_rover_i/motor_ror.h>
+#include <exploration_rover_i/tcmc.h>
 #include <exploration_rover_i/motor_info.h>
 #include <string>
 #include <vector>
@@ -18,14 +18,14 @@ std::vector<int> info_addresses;
 // std::vector<std::vector<int>> infos;
 std::vector<int> infos;
 
-void handleInput(const exploration_rover_i::motor_ror &msg)
+void handleInput(const exploration_rover_i::tcmc &msg)
 {
     // USB: this message is not for me
     if (mode == MODE_USB && msg.address != usb_address)
         return;
 
-    driver.SendCmd(msg.address, TMCL_ROR, 0, 0, msg.value);
-    ROS_INFO("Motor %x: %d", msg.address, (int)msg.value);
+    driver.SendCmd(msg.address, msg.command, msg.type, msg.motor, msg.value);
+    // ROS_INFO("Motor %x: %d", msg.address, (int)msg.value);
 }
 
 int main(int argc, char **argv)
@@ -138,29 +138,29 @@ int main(int argc, char **argv)
                 int motor = 0;
                 int type = infos[i];
 
-                if (mode == MODE_USB && address != usb_address)
-                    continue;
+                // if (mode == MODE_USB && address != usb_address)
+                //     continue;
 
-                UCHAR r_address, status;
-                INT value;
-                driver.SendCmd(address, 6, type, 0, 0);
-                driver.GetResult(&r_address, &status, &value);
-                // ROS_INFO("Address: %x\t type: %x\t value: %d", usb_address, infos[i], value);
+                // UCHAR r_address, status;
+                // INT value;
+                // driver.SendCmd(address, 6, type, 0, 0);
+                // driver.GetResult(&r_address, &status, &value);
+                // // ROS_INFO("Address: %x\t type: %x\t value: %d", usb_address, infos[i], value);
 
-                // an error occured
-                if (status != 100)
-                {
-                    ROS_ERROR("An error occured when trying to get info from motor %x (status: %x)", address, status);
-                    continue;
-                }
+                // // an error occured
+                // if (status != 100)
+                // {
+                //     ROS_ERROR("An error occured when trying to get info from motor %x (status: %x)", address, status);
+                //     continue;
+                // }
 
-                exploration_rover_i::motor_info info_msg;
-                info_msg.address = address;
-                info_msg.motor = motor;
-                info_msg.type = type;
-                info_msg.value = value;
+                // exploration_rover_i::motor_info info_msg;
+                // info_msg.address = address;
+                // info_msg.motor = motor;
+                // info_msg.type = type;
+                // info_msg.value = value;
 
-                pub.publish(info_msg);
+                // pub.publish(info_msg);
             }
         }
 
