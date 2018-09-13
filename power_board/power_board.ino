@@ -3,6 +3,11 @@
 static int r = 5;
 static int g = 3;
 static int b = 6;
+
+static int 200r = 1;
+static int 200g = 2;
+static int 200b = 3;
+
 bool COUNTER = 0;
 
 //Fehler Meldungen
@@ -12,7 +17,8 @@ static String noBATTERY = "<Battery missing>\n";
 
 
 void setup() {
-  Serial.begin(9600);
+  //Serial.begin(9600);
+  Serial.begin(117000);
   
   pinMode(r, OUTPUT);
   pinMode(g, OUTPUT);
@@ -36,14 +42,14 @@ void setup() {
     delay(200);
   }
 
-    Serial.println(" ______    _____");                         
+    /*Serial.println(" ______    _____");                         
     Serial.println("|  __  | /   ___|"); 
     Serial.println("| |  | | |  /   |");
     Serial.println("| |__| | |___/  |");
     Serial.println("ROVER__brunoOS_/");
     Serial.println();
     Serial.println("    help/info");
-    //Serial.println("\n  <system ok>\n");
+    //Serial.println("\n  <system ok>\n");*/
 
   float AKKU = VOLTAGE_CHECK(3, 4.7, 33, 0, 0, 0);
   if(AKKU < 25.9) {
@@ -56,7 +62,7 @@ void setup() {
           }
           COUNTER = 1;
         } else {
-          //analogWrite(r, 255);
+          analogWrite(r, 255);
           COUNTER = 0;
         }
   Serial.print("\n> ");
@@ -95,36 +101,44 @@ void loop() {
           //Serial.println("temp");
        TEMP_M = TEMP_READ();
        //Serial.write(_2_7);//new page
-       Serial.print("  Temperatur: "),Serial.print(TEMP_M), Serial.println("°C");
+       //Serial.print("  Temperatur: "),Serial.print(TEMP_M), Serial.println("°C");
+       Serial.print(TEMP_M);
        }
 
         //Akku PWR
-       else if(COMMAND == "voltagebattery") {
+       else if(COMMAND == "1") {
         //Serial.print("voltage battery -"), Serial.println(PARAMETER_1);
           AKKU = VOLTAGE_CHECK(3, 4.7, 33, 0, 0, PARAMETER_1);
+          Serial.println(AKKU);
           //Serial.print("  Spannung: "),Serial.print(AKKU), Serial.println("V ");
        }
 
         //Spannungsmessung Quest mit Ausgleichsgreade bezogen auf Fluke (WARR Werkstatt)
-        else if(COMMAND == "voltagequest") {
+        else if(COMMAND == "2") {
           //Serial.print("voltage quest -"), Serial.println(PARAMETER_1);
           AKKU = VOLTAGE_CHECK(0, 4.7, 22, 0.0111, -0.0787, PARAMETER_1);
-          if(PARAMETER_1 && (AKKU < 1.0 || AKKU > 24.0)) Serial.println("<Warnung>: Nur zwischen 1V und 24V genau!");
+          Serial.println(AKKU);
+          //if(PARAMETER_1 && (AKKU < 1.0 || AKKU > 24.0)) Serial.println("<Warnung>: Nur zwischen 1V und 24V genau!");
         }
 
-        else if(COMMAND == "voltagenuc") {
+        //spannung am nuc
+        else if(COMMAND == "3") {
         //Serial.print("voltage INTEL-NUC -"), Serial.println(PARAMETER_1);
           AKKU = VOLTAGE_CHECK(4, 4.7, 12, 0, 0, PARAMETER_1);
+          Serial.println(AKKU);
           //Serial.print("  Spannung: "),Serial.print(AKKU), Serial.println("V ");
        }
 
-       else if(COMMAND == "voltagestable") {
+       //24V?
+       else if(COMMAND == "4") {
         //Serial.print("voltage battery -"), Serial.println(PARAMETER_1);
           AKKU = VOLTAGE_CHECK(1, 4.7, 33, 0, 0, PARAMETER_1);
+          Serial.println(AKKU);
           //Serial.print("  Spannung: "),Serial.print(AKKU), Serial.println("V ");
        }
 
-        else if(COMMAND == "ledon") {
+        //led on
+        else if(COMMAND == "5") {
           //Serial.println("led on");
           if(PARAMETER_1 == NULL) PARAMETER_1 = 35;
           if(PARAMETER_2 == NULL) PARAMETER_2 = 6;
@@ -138,39 +152,63 @@ void loop() {
         PARAMETER_2 = NULL;
         PARAMETER_3 = NULL;
         }
-        
-        else if(COMMAND == "ledoff") {
+
+        //led off
+        else if(COMMAND == "6") {
           //Serial.println("led off");
         analogWrite(r, 255);
         analogWrite(g, 255);
         analogWrite(b, 255);
         }
-        
-        else if(COMMAND == "red") {
+
+        //red
+        else if(COMMAND == "7") {
           //Serial.println("red");
         if(PARAMETER_1 == NULL) PARAMETER_1 = 35;
         analogWrite(r, 255-PARAMETER_1);
         PARAMETER_1 = NULL;
         }
-        
-        else if(COMMAND == "green") {
+
+        //green
+        else if(COMMAND == "8") {
           //Serial.println("green");
         if(PARAMETER_1 == NULL) PARAMETER_1 = 6;
         analogWrite(g, 255-PARAMETER_1);
         PARAMETER_1 = NULL;
         }
-        
-        else if(COMMAND == "blue") {
+
+        //blue
+        else if(COMMAND == "9") {
           //Serial.println("blue");
         if(PARAMETER_1 == NULL) PARAMETER_1 = 6;
         analogWrite(g, 255-PARAMETER_1);
         PARAMETER_1 = NULL;
         }
-        
 
+        //200€ Lampe
+        else if(COMMAND == "10") {
+          digitalWrite(pin, LOW);
+        }
+        else if(COMMAND == "101") {
+          digitalWrite(pin, HIGH);
+        }
+        else if(COMMAND == "11") {
+          digitalWrite(pin, LOW);
+        }
+        else if(COMMAND == "111") {
+          digitalWrite(pin, HIGH);
+        }
+        else if(COMMAND == "12") {
+          digitalWrite(pin, LOW);
+        }
+        else if(COMMAND == "121") {
+          digitalWrite(pin, HIGH);
+        }
+        
+        //help
         else if(COMMAND == "help") {
           //Serial.println("Help");
-          Serial.println("Interface clear clr");
+          /*Serial.println("Interface clear clr");
           Serial.println("Temperatur PCB  temp");
           Serial.println("\nSpannung:");
           Serial.println("Akku-PWR ------ voltage battery -VERBOUS[0/1]");
@@ -184,17 +222,18 @@ void loop() {
           Serial.println("grün green  -g[0-255]");
           Serial.println("blau blue   -b[0-255]");
           Serial.println("aus  led off");
-          Serial.println("Default: r[35] g[6] b[6]");
+          Serial.println("Default: r[35] g[6] b[6]");*/
         }
 
+        //info
        else if(COMMAND == "info") {
         //Serial.println("info");
-          Serial.println("Software: Version 1.0 Beta");
+          /*Serial.println("Software: Version 1.0 Beta");
           Serial.println("PCB:      Version 2.0");
           Serial.println("In Betrieb:");
           Serial.println("- Alle Spg und Temp");
           Serial.println("- Betriebsspannung für den NUC");
-          Serial.println("- Betriebsspannung Logik");
+          Serial.println("- Betriebsspannung Logik");*/
        }
        else if(COMMAND == "clr") {
         for (int m = 0; m < 60; m++){
@@ -204,7 +243,7 @@ void loop() {
 
         else {
           //Serial.println(READ_DATA);
-          Serial.println("  <command not found> see help");
+          Serial.println("<command not found> see help");
         }
     
 
