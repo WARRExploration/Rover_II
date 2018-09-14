@@ -25,7 +25,7 @@ void handleInput(const exploration_rover_i::tcmc &msg)
         return;
 
     driver.SendCmd(msg.address, msg.command, msg.type, msg.motor, msg.value);
-    // ROS_INFO("Motor %x: %d", msg.address, (int)msg.value);
+    ROS_INFO("Motor %x: %d", msg.address, (int)msg.value);
 }
 
 int main(int argc, char **argv)
