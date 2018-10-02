@@ -25,19 +25,7 @@ void handleInput(const exploration_rover_i::tcmc &msg)
         return;
 
     driver.SendCmd(msg.address, msg.command, msg.type, msg.motor, msg.value);
-//    ROS_INFO("Motor %x: %d", msg.address, (int)msg.value);
-UCHAR r_address, status;
-                 INT value;
-                 driver.GetResult(&r_address, &status, &value);
-                 // ROS_INFO("Address: %x\t type: %x\t value: %d", usb_address,$
-
-                 // an error occured
-                 if (status != 100)
-                 {
-                     ROS_ERROR("An error occured when trying to get info from motor %x (status: %x)", r_address, status);
-                 }
-
-
+    ROS_INFO("Motor %x: %d", msg.address, (int)msg.value);
 }
 
 int main(int argc, char **argv)
