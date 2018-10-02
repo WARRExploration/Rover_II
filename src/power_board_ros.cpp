@@ -4,21 +4,20 @@
 #include "std_msgs/Bool.h"
 
 serial::Serial ser;
-
 void red(const std_msgs::Bool &msg)
 {
     if(msg.data)
-        ser.write("101");
+        ser.write("101\n");
     else
-        ser.write("100");
+        ser.write("100\n");
 }
 
 void green(const std_msgs::Bool &msg)
 {
     if(msg.data)
-        ser.write("121");
+        ser.write("111\n");
     else
-        ser.write("120");
+        ser.write("110\n");
 }
 
 int main(int argc, char **argv)
@@ -42,10 +41,13 @@ int main(int argc, char **argv)
     ser.setTimeout(to);
     ser.open();
 
-    nh.subscribe("lamp/r", 1, red);
-    nh.subscribe("lamp/g", 1, green);
+    ros::Subscriber red_sub = nh.subscribe("lamp/r", 10, red);
+    ros::Subscriber green_sub = nh.subscribe("lamp/g", 10, green);
+
+    ROS_INFO("Setup finished!");
  
     ros::spin();
 
     return 0;
 }
+

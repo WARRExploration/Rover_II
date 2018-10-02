@@ -1,0 +1,7 @@
+<launch>
+    <node name="motor_driver_rs485" pkg="exploration_rover_i" type="motor_driver_ros" output="screen">
+        <param name="mode" value="rs485" type="str" />
+        <param name="device" value="/dev/rs485" type="str" />
+        <rosparam command="load" file="$(find exploration_rover_i)/config/info.yaml" />
+    </node>
+</launch>

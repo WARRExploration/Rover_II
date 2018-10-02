@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "cameras"
+tmux new -d -s cameras "roslaunch exploration_rover_i camera.launch"
+echo "web"
+tmux new -d -s web "roslaunch rosbridge_server rosbridge_websocket.launch"
+echo "motors"
+tmux new -d -s motors "roslaunch exploration_rover_i motor_driver_rs485.launch"
+echo "done!"
