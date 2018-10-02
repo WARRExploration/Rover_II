@@ -4,9 +4,9 @@ static int r = 5;
 static int g = 3;
 static int b = 6;
 
-static int r200 = 9;
-static int g200 = 10;
-static int b200 = 11;
+static int r200 = 11;
+static int g200 = 9;
+static int b200 = 10;
 
 bool COUNTER = 0;
 
@@ -27,6 +27,8 @@ void setup() {
   pinMode(r200, OUTPUT);
   pinMode(g200, OUTPUT);
   pinMode(b200, OUTPUT);
+
+  digitalWrite(r200, HIGH);  
     
   analogWrite(r, 255);
   analogWrite(g, 255);
