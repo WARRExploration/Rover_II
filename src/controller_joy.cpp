@@ -26,14 +26,14 @@ void callback(const sensor_msgs::Joy &msg)
     float left = speed + steering;
     float right = speed - steering;
 
-    for (int i = 0; i < 4; i++)
+    for (int i = 1; i <= 4; i++)
     {
         exploration_rover_i::tcmc motor_cmd;
         motor_cmd.address = i;
         motor_cmd.command = TMCL_ROR;
         motor_cmd.type = 0;
         motor_cmd.motor = 0;
-        motor_cmd.value = (i < 2) ? -right : left;
+        motor_cmd.value = (i <= 2) ? right : -left;
         pub.publish(motor_cmd);
     }
 }
