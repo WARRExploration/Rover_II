@@ -1,8 +1,8 @@
 
 <template>
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
-        <AppHeader v-if="!config.fullscreen" :config="config" title="WARR Exploration - TelOp" ></AppHeader>
-        <AppBody :config="config" style="flex-grow: 1;"></AppBody>
+        <AppHeader v-if="!config.fullscreen" :config="config" title="WARR Exploration - TeleOp" ></AppHeader>
+        <AppBody v-if="config.connected" :config="config" style="flex-grow: 1;"></AppBody>
       </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
         connected: false,
         eventHub: eventHub,
         fullscreen: false,
-        url: '',
+        url: ""
       }
     };
   },
@@ -45,12 +45,42 @@ export default {
         "close",
         function() {
           this.config.connected = false;
-          this.config.url = '';
+          this.config.url = "";
         }.bind(this)
       );
     },
     disconnect() {
       this.config.ros.close();
+    },
+    gameLoop() {
+      var gamepads = navigator.getGamepads
+        ? navigator.getGamepads()
+        : navigator.webkitGetGamepads ? navigator.webkitGetGamepads : [];
+      if (!gamepads) {
+        return;
+      }
+
+      var gp = gamepads[0];
+      var x = Math.abs(gp.axes[0]) < 0.05 ? 0 : gp.axes[0];
+      var y = Math.abs(gp.axes[1]) < 0.05 ? 0 : gp.axes[1];
+
+      var speed = y * 1500;
+      var side = x * 1500;
+
+      var valueLeft = speed - side;
+      var valueRight = speed + side;
+
+      for (var i = 1; i <= 4; i++) {
+        // var twist = new ROSLIB.Message({
+        //   address: i,
+        //   value: i <= 2 ? -Math.trunc(valueRight) : Math.trunc(valueLeft)
+        // });
+        // cmdVel.publish(twist);
+      }
+
+      setTimeout(function() {
+        start = requestAnimationFrame(gameLoop);
+      }, 1000 / 20);
     }
   },
   created() {
@@ -83,6 +113,14 @@ export default {
         }
       }.bind(this)
     );
+
+    window.addEventListener("gamepadconnected", function(e) {
+      this.gameLoop();
+    });
+
+    window.addEventListener("gamepaddisconnected", function(e) {
+      cancelRequestAnimationFrame(start);
+    });
   }
 };
 </script>

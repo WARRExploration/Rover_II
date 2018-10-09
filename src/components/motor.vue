@@ -5,8 +5,8 @@
             <div class="speedlabel">{{ speed }}</div>
         </div>
         <div class="motorslider">
-            <vue-slider ref="slider" v-model="value" v-bind="slider_conf">
-                <span slot="label" slot-scope="{ label, active }" :class="['custom-label', { active }]" v-if="label % 1000 === 0">
+            <vue-slider ref="slider" v-model="value" v-bind="slider_conf" :disabled="!active" @drag-end="resetValue()">
+                <span slot="label" slot-scope="{ label, active }" :class="['custom-label', { active }]" v-if="label % step === 0">
                     {{ label }}
                 </span>
             </vue-slider>
@@ -22,15 +22,15 @@ export default {
   components: {
     vueSlider
   },
-  props: ["config", "address"],
+  props: ["config", "address", "motor", "active", "value", "max_speed", "snapback"],
   data() {
     return {
       //   speed: 0,
       current: 0,
-      max_speed: 3200,
       max_current: 0,
-      show: true,
-      value: 0,
+      framerate: 15,
+      topic: null,
+      step: 1000,
       slider_conf: {
         tooltip: false,
         direction: "vertical",
@@ -40,15 +40,61 @@ export default {
         min: -3200,
         max: 3200,
         interval: 100,
+        clickable: false,
         processStyle: {
           display: "none"
         }
       }
     };
   },
+  created() {
+    this.topic = new ROSLIB.Topic({
+      ros: this.config.ros,
+      name: "/motor_driver",
+      messageType: "exploration_rover_i/tcmc"
+    });
+
+    this.slider_conf.min = -this.max_speed;
+    this.slider_conf.max = this.max_speed;
+    this.slider_conf.interval = 2 * this.max_speed / 5;
+  },
   computed: {
     speed() {
       return this.value;
+    }
+  },
+  watch: {
+    active: {
+      immediate: true,
+      handler(newVal, oldVal) {
+        if (this.active) {
+          if (!this.interval)
+            this.interval = setInterval(this.update, 1000.0 / this.framerate);
+        } else {
+          if (this.interval) {
+            clearTimeout(this.interval);
+            delete this.interval;
+          }
+        }
+      }
+    }
+  },
+  methods: {
+    resetValue() {
+      if (this.snapback) {
+        this.value = 0;
+      }
+    },
+    update() {
+      var msg = new ROSLIB.Message({
+        address: this.address,
+        command: 1,
+        type: 0,
+        motor: this.motor,
+        value: parseInt(this.value)
+      });
+      this.topic.publish(msg);
+      // console.log(msg);
     }
   }
 };

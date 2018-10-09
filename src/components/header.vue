@@ -2,7 +2,11 @@
     <header>
         <img src="../assets/logo.svg">
         <h1>{{ title }}</h1>
-        <Connect :endpoints="['warr-rover.lrt.mw.tum.de', '10.0.0.1']" :config="config"></Connect>
+        <div v-if="config.connected">
+          <button @click="setRed" :class="{active: red}">Red</button>
+          <button @click="setGreen" :class="{active: green}">Green</button>
+        </div>
+        <Connect :endpoints="['warr-rover.lrt.mw.tum.de', '10.0.0.1', 'localhost']" :config="config"></Connect>
     </header>
 </template>
 
@@ -13,7 +17,41 @@ import connect from "./connect.vue";
 Vue.component("Connect", connect);
 
 export default {
-  props: ["title", "config"]
+  props: ["title", "config"],
+  data() {
+    return {
+      red: true,
+      green: false
+    };
+  },
+  methods: {
+    setRed() {
+      this.red = !this.red;
+      var topic = new ROSLIB.Topic({
+        ros: this.config.ros,
+        name: "/lamp/r",
+        messageType: "std_msg/Bool"
+      });
+
+      var msg = new ROSLIB.Message({
+        data: this.red
+      });
+      topic.publish(msg);
+    },
+    setGreen() {
+      this.green = !this.green;
+      var topic = new ROSLIB.Topic({
+        ros: this.config.ros,
+        name: "/lamp/g",
+        messageType: "std_msg/Bool"
+      });
+
+      var msg = new ROSLIB.Message({
+        data: this.green
+      });
+      topic.publish(msg);
+    }
+  }
 };
 </script>
 
@@ -33,5 +71,9 @@ h1 {
 
 img {
   height: 100%;
+}
+
+button.active {
+  background-color: #88ff88;
 }
 </style>
