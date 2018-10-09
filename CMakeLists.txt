@@ -98,3 +98,11 @@ add_executable(
 target_link_libraries(power_board
   ${catkin_LIBRARIES}
 )
+
+add_executable(
+  controller_joy
+    src/controller_joy.cpp
+)
+target_link_libraries(controller_joy
+  ${catkin_LIBRARIES}
+)
