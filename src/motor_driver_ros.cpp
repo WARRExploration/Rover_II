@@ -26,6 +26,15 @@ void handleInput(const exploration_rover_i::tcmc &msg)
 
     driver.SendCmd(msg.address, msg.command, msg.type, msg.motor, msg.value);
     ROS_INFO("Motor %x: %d", msg.address, (int)msg.value);
+
+    UCHAR r_address, status;
+    INT value;
+    driver.GetResult(&r_address, &status, &value);
+
+    if (status != 100)
+    {
+        ROS_ERROR("An error occured when trying to get info from motor %x (status: %x)", r_address, status);
+    }
 }
 
 int main(int argc, char **argv)
@@ -98,7 +107,7 @@ int main(int argc, char **argv)
     }
 
     // init device
-    driver.init(device, 9600);
+    driver.init(device, 115200);
 
     // read address of the motor driver
     if (mode == MODE_USB)
@@ -130,41 +139,41 @@ int main(int argc, char **argv)
 
     while (ros::ok())
     {
-        for (int i = 0; i < infos.size(); i++)
-        {
-            for (int j = 0; j < info_addresses.size(); j++)
-            {
-		continue;
+        // for (int i = 0; i < infos.size(); i++)
+        // {
+        //     for (int j = 0; j < info_addresses.size(); j++)
+        //     {
+        //         continue;
 
-                int address = info_addresses[j];
-                int motor = 0;
-                int type = infos[i];
+        //         int address = info_addresses[j];
+        //         int motor = 0;
+        //         int type = infos[i];
 
-                 if (mode == MODE_USB && address != usb_address)
-                     continue;
+        //         if (mode == MODE_USB && address != usb_address)
+        //             continue;
 
-                 UCHAR r_address, status;
-                 INT value;
-//                 driver.SendCmd(address, 6, type, 0, 0);
-//                 driver.GetResult(&r_address, &status, &value);
-                 // ROS_INFO("Address: %x\t type: %x\t value: %d", usb_address, infos[i], value);
+        //         UCHAR r_address, status;
+        //         INT value;
+        //         //                 driver.SendCmd(address, 6, type, 0, 0);
+        //         //                 driver.GetResult(&r_address, &status, &value);
+        //         // ROS_INFO("Address: %x\t type: %x\t value: %d", usb_address, infos[i], value);
 
-                 // an error occured
-                 if (status != 100)
-                 {
-                     ROS_ERROR("An error occured when trying to get info from motor %x (status: %x)", address, status);
-                     continue;
-                 }
+        //         // an error occured
+        //         if (status != 100)
+        //         {
+        //             ROS_ERROR("An error occured when trying to get info from motor %x (status: %x)", address, status);
+        //             continue;
+        //         }
 
-                // exploration_rover_i::motor_info info_msg;
-                // info_msg.address = address;
-                // info_msg.motor = motor;
-                // info_msg.type = type;
-                // info_msg.value = value;
+        //         // exploration_rover_i::motor_info info_msg;
+        //         // info_msg.address = address;
+        //         // info_msg.motor = motor;
+        //         // info_msg.type = type;
+        //         // info_msg.value = value;
 
-                // pub.publish(info_msg);
-            }
-        }
+        //         // pub.publish(info_msg);
+        //     }
+        // }
 
         ros::spinOnce();
         loop_rate.sleep();

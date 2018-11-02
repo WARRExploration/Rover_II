@@ -1,0 +1,8 @@
+<launch>
+    <node pkg="exploration_rover_i" type="controller_joy" name="controller_joy" />
+
+    <node pkg="joy" type="joy_node" name="joy_node">
+        <param name="autorepeat_rate" value="15"/>
+    </node>
+</launch>
+
