@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="rover_model">
+
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="0.7 1.0 0.4"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <link name="left_rocker">
+        <visual>
+            <geometry>
+                <box size="0.2 1.4 0.2"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="0.1 0 0"/>
+        </visual>
+    </link>
+
+    <link name="right_rocker">
+        <visual>
+            <geometry>
+                <box size="0.2 1.4 0.2"/>
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.1 0 0"/>
+        </visual>
+    </link>
+
+    <link name="wheel_front_left">
+        <visual>
+            <geometry>
+                <cylinder radius="0.15" length="0.2"/>
+            </geometry>
+            <origin rpy="0 1.570796 0" xyz="0.1 0 0"/>
+        </visual>
+    </link>
+
+    <link name="wheel_front_right">
+        <visual>
+            <geometry>
+                <cylinder radius="0.15" length="0.2"/>
+            </geometry>
+            <origin rpy="0 1.570796 0" xyz="-0.1 0 0"/>
+        </visual>
+    </link>
+
+    <link name="wheel_back_left">
+        <visual>
+            <geometry>
+                <cylinder radius="0.15" length="0.2"/>
+            </geometry>
+            <origin rpy="0 1.570796 0" xyz="0.1 0 0"/>
+        </visual>
+    </link>
+
+    <link name="wheel_back_right">
+        <visual>
+            <geometry>
+                <cylinder radius="0.15" length="0.2"/>
+            </geometry>
+            <origin rpy="0 1.570796 0" xyz="-0.1 0 0"/>
+        </visual>
+    </link>
+
+    <joint name="left_rocker_joint" type="revolute">
+        <origin xyz="0.35 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="left_rocker"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="0.0" upper="0.0" effort="0.0" velocity="0.0"/>
+    </joint>
+
+    <joint name="right_rocker_joint" type="revolute">
+        <origin xyz="-0.35 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="right_rocker"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="0" upper="0" effort="0" velocity="0"/>
+    </joint>
+
+    <joint name="wheel_front_left_joint" type="revolute">
+        <origin xyz="0.2 -0.7 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="left_rocker"/>
+        <child link="wheel_front_left"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="0" upper="0" effort="0" velocity="0"/>
+    </joint>
+
+    <joint name="wheel_front_right_joint" type="revolute">
+        <origin xyz="-0.2 -0.7 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="right_rocker"/>
+        <child link="wheel_front_right"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="0" upper="0" effort="0" velocity="0"/>
+    </joint>
+
+    <joint name="wheel_back_left_joint" type="revolute">
+        <origin xyz="0.2 0.7 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="left_rocker"/>
+        <child link="wheel_back_left"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="0" upper="0" effort="0" velocity="0"/>
+    </joint>
+
+    <joint name="wheel_back_right_joint" type="revolute">
+        <origin xyz="-0.2 0.7 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="right_rocker"/>
+        <child link="wheel_back_right"/>
+        <axis xyz="1 0 0"/>
+        <limit lower="0" upper="0" effort="0" velocity="0"/>
+    </joint>
+
+</robot>

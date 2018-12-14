@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rover_config</name>
+  <version>0.0.0</version>
+  <description>Contains all the requirement files that describe and configure the rover.</description>
+
+  <maintainer email="exploration@warr.de">WARR Exploration</maintainer>
+
+
+  <license>GPLv3</license>
+
+  <url type="website">http://exploration.warr.de</url>
+
+  <author email="markus.goegele@warr.de">Markus Gögele</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
