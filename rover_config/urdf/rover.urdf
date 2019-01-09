@@ -186,7 +186,7 @@
             <geometry>
                 <box size="0.1 0.1 1.0"/>
             </geometry>
-            <origin rpy="0 0 0" xyz="0 0 0.2"/>
+            <origin rpy="0 0 0" xyz="0 0 0.3"/>
             <material name="Green">
                 <color rgba="${111/255} ${155/255} ${137/255} 1.0"/>
             </material>
@@ -197,6 +197,8 @@
         </inertial>
     </link>
 
+<<<<<<< HEAD
+=======
     <link name="arm_connector">
         <visual>
             <geometry>
@@ -211,16 +213,24 @@
             <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
         </inertial>
     </link>
+>>>>>>> 056fd1fc542b84a082a617a9aa1b547c30798cec
 
     <link name="arm2_link2">
         <visual>
             <geometry>
                 <cylinder radius="0.05" length="0.7"/>
             </geometry>
+<<<<<<< HEAD
+            <origin rpy="-1.3 0 0" xyz="0 -0.3 -0.05"/>
+             <material name="Green">
+             <color rgba="${111/255} ${155/255} ${137/255} 1.0"/>
+        </material>
+=======
             <origin rpy="1.3 0 0" xyz="0 0 -0.03"/>
             <material name="Green">
                 <color rgba="${111/255} ${155/255} ${137/255} 1.0"/>
             </material>
+>>>>>>> 056fd1fc542b84a082a617a9aa1b547c30798cec
         </visual>
         <inertial>
             <mass value="0.1" />
@@ -228,6 +238,8 @@
         </inertial>
     </link>
 
+<<<<<<< HEAD
+=======
     <link name="arm2_connector2">
         <visual>
             <geometry>
@@ -242,16 +254,24 @@
             <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
         </inertial>
     </link>
+>>>>>>> 056fd1fc542b84a082a617a9aa1b547c30798cec
 
     <link name="arm3_link3">
         <visual>
             <geometry>
                 <cylinder radius="0.05" length="0.4"/>
             </geometry>
+<<<<<<< HEAD
+            <origin rpy="-0.5 0 0" xyz="0 -0.1 -0.15"/>
+             <material name="Green">
+             <color rgba="${111/255} ${155/255} ${137/255} 1.0"/>
+        </material>
+=======
             <origin rpy="0.5 0 0" xyz="0 0 0"/>
             <material name="Green">
                 <color rgba="${111/255} ${155/255} ${137/255} 1.0"/>
             </material>
+>>>>>>> 056fd1fc542b84a082a617a9aa1b547c30798cec
         </visual>
         <inertial>
             <mass value="0.1" />
@@ -360,29 +380,25 @@
 
 
     <joint name="arm_link_joint" type="revolute">
-        <origin xyz="0 0.45 0.4" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0 -0.5 0.4" rpy="0.0 0.0 0.0"/>
         <parent link="base_link"/>
         <child link="arm_link"/>
         <axis xyz="1 0 0"/>
         <limit lower="0" upper="0" effort="0" velocity="0"/>
     </joint>
 
-    <joint name="arm_connector_joint" type="revolute">
-        <origin xyz="0 0 0.6" rpy="0.0 0.0 0.0"/>
-        <parent link="arm_link"/>
-        <child link="arm_connector"/>
-        <axis xyz="1 0 0"/>
-        <limit lower="0" upper="0" effort="0" velocity="0"/>
-    </joint>
+   
 
     <joint name="arm2_link2_joint" type="revolute">
-        <origin xyz="0 0.3 0" rpy="0.0 0.0 0.0"/>
-        <parent link="arm_connector"/>
+        <origin xyz="0 0 0.70" rpy="0.0 0.0 0.0"/>
+        <parent link="arm_link"/>
         <child link="arm2_link2"/>
         <axis xyz="1 0 0"/>
         <limit lower="0" upper="0" effort="0" velocity="0"/>
     </joint>
 
+<<<<<<< HEAD
+=======
     <joint name="arm2_connector2_joint" type="revolute">
         <origin xyz="0 0.3 -0.1" rpy="0.0 0.0 0.0"/>
         <parent link="arm2_link2"/>
@@ -390,17 +406,18 @@
         <axis xyz="1 0 0"/>
         <limit lower="0" upper="0" effort="0" velocity="0"/>
     </joint>
+>>>>>>> 056fd1fc542b84a082a617a9aa1b547c30798cec
 
     <joint name="arm3_link3_joint" type="revolute">
-        <origin xyz="0 0.05 -0.15" rpy="0.0 0.0 0.0"/>
-        <parent link="arm2_connector2"/>
+        <origin xyz="0 -0.55 -0.13" rpy="0.0 0.0 0.0"/>
+        <parent link="arm2_link2"/>
         <child link="arm3_link3"/>
         <axis xyz="1 0 0"/>
         <limit lower="0" upper="0" effort="0" velocity="0"/>
     </joint>
 
     <joint name="grip_connector_joint" type="revolute">
-        <origin xyz="0 0.1 -0.2" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0 -0.2 -0.3" rpy="0.0 0.0 0.0"/>
         <parent link="arm3_link3"/>
         <child link="grip_connector"/>
         <axis xyz="1 0 0"/>
@@ -408,7 +425,7 @@
     </joint>
 
     <joint name="left_grip_joint" type="revolute">
-        <origin xyz="0.07 0 -0.1" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.07 -0.05 -0.1" rpy="0.0 0.0 0.0"/>
         <parent link="grip_connector"/>
         <child link="left_grip"/>
         <axis xyz="1 0 0"/>
@@ -416,7 +433,7 @@
     </joint>
 
     <joint name="right_grip_joint" type="revolute">
-        <origin xyz="-0.07 0 -0.1" rpy="0.0 0.0 0.0"/>
+        <origin xyz="-0.07 -0.05 -0.1" rpy="0.0 0.0 0.0"/>
         <parent link="grip_connector"/>
         <child link="right_grip"/>
         <axis xyz="1 0 0"/>
