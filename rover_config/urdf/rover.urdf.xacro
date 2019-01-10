@@ -148,7 +148,7 @@
             <parent link="${suffix}_rocker"/>
             <child link="wheel_${prefix}_${suffix}"/>
             <axis xyz="1 0 0"/>
-            <limit lower="0" upper="0" effort="0" velocity="0"/>
+            <!-- <limit lower="0" upper="0" effort="0" velocity="0"/> -->
         </joint>
 
         <gazebo reference="wheel_${prefix}_{suffix}_joint">
