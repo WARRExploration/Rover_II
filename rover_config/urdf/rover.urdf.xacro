@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
-<robot name="rover_model" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="rover_model" 
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <material name="black">
         <color rgba="0 0 0 1"/>
@@ -73,17 +74,18 @@
         <child link="left_rocker"/>
         <origin xyz="0.35 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <axis xyz="1 0 0"/>
-        <limit lower="-0.5235988" upper="0.5235988" effort="0.0" velocity="0.0"/>
+        <!-- <limit lower="-0.5235988" upper="0.5235988" effort="0.0" velocity="0.0"/> -->
+        <limit lower="0" upper="0" effort="0.0" velocity="0.0"/>
     </joint>
 
     <transmission name="left_rocker_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="left_rocker_joint">
-          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="left_rocker_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>  
+        </actuator>
     </transmission>
 
     <link name="right_rocker">
@@ -111,7 +113,8 @@
         <child link="right_rocker"/>
         <origin xyz="-0.35 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <axis xyz="1 0 0"/>
-        <limit lower="-0.5235988" upper="0.5235988" effort="0" velocity="0"/>
+        <!-- <limit lower="-0.5235988" upper="0.5235988" effort="0" velocity="0"/> -->
+        <limit lower="0" upper="0" effort="0" velocity="0"/>
     </joint>
 
     <transmission name="right_rocker_trans">
@@ -121,7 +124,7 @@
         </joint>
         <actuator name="right_rocker_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>         
+        </actuator>
     </transmission>
 
     <xacro:macro name="wheel" params="prefix suffix reflect_x reflect_y">
@@ -145,17 +148,19 @@
 
         <joint name="wheel_${prefix}_${suffix}_joint" type="continuous">
             <origin xyz="${reflect_x*0.2} ${reflect_y*(-0.7)} 0.0" rpy="0.0 0.0 0.0"/>
-            <parent link="${suffix}_rocker"/>
+            <parent link="${suffix}_rocker"/>   
             <child link="wheel_${prefix}_${suffix}"/>
             <axis xyz="1 0 0"/>
             <!-- <limit lower="0" upper="0" effort="0" velocity="0"/> -->
         </joint>
 
         <gazebo reference="wheel_${prefix}_{suffix}_joint">
-            <mu1 value="2000.0"/>
-            <mu2 value="1000.0"/>
+            <!-- <mu1 value="200.0"/>
+            <mu2 value="100.0"/>
             <kp value="10000000.0" />
-            <kd value="1.0" />
+            <kd value="1.0" /> -->
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
             <material>Gazebo/Grey</material>
         </gazebo>
 
@@ -176,7 +181,7 @@
     <xacro:wheel prefix="back" suffix="left" reflect_x="1" reflect_y="-1"/>
     <xacro:wheel prefix="back" suffix="right" reflect_x="-1" reflect_y="-1"/>
 
-   <link name="arm_link">
+    <link name="arm_link">
         <visual>
             <geometry>
                 <box size="0.1 0.1 1.0"/>
@@ -402,81 +407,81 @@
     <transmission name="arm_link_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="arm_link_joint">
-          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="arm_link_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>  
+        </actuator>
     </transmission>
 
     <transmission name="arm_connector_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="arm_connector_joint">
-          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="arm_connector_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>  
+        </actuator>
     </transmission>
 
     <transmission name="arm2_link2_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="arm2_link2_joint">
-          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="arm2_link2_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>  
+        </actuator>
     </transmission>
 
     <transmission name="arm2_connector2_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="arm2_connector2_joint">
-          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="arm2_connector2_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>  
+        </actuator>
     </transmission>
 
     <transmission name="arm3_link3_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="arm3_link3_joint">
-          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="arm3_link3_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>  
+        </actuator>
     </transmission>
 
     <transmission name="grip_connector_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="grip_connector_joint">
-          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="grip_connector_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>  
+        </actuator>
     </transmission>
 
     <transmission name="left_grip_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="left_grip_joint">
-          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="left_grip_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>  
+        </actuator>
     </transmission>
 
     <transmission name="right_grip_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="right_grip_joint">
-          <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
         <actuator name="right_grip_motor">
             <mechanicalReduction>1</mechanicalReduction>
-        </actuator>  
+        </actuator>
     </transmission>
 
     <gazebo>
