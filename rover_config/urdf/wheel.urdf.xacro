@@ -15,7 +15,7 @@
    </xacro:macro>
 
 
-   <xacro:macro name="wheel" params="fb lr parent translateX translateY translateZ flipY">
+   <xacro:macro name="wheel" params="fb lr parent translateX translateY translateZ flipY flipZ">
      
    <!-- fb: front, back; lr: left right -->
       <link name="${fb}_${lr}_wheel">
@@ -42,10 +42,11 @@
 
       <gazebo reference="${fb}_${lr}_wheel" >
          <mu1 value="1.0"/>
-         <mu2 value="1.0" />
+         <!-- <mu2 value="1.0" /> -->
+         <mu2 value="0.1" />
          <kp  value="10000000.0" />
          <kd  value="1.0" />
-         <fdir1 value="1 1 0" />
+         <fdir1 value="1 ${flipY * flipZ} 0" />
          <slip1>0.5</slip1>
          <slip2>0</slip2>
          <material>Gazebo/Black</material>
