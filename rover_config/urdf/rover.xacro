@@ -35,22 +35,15 @@
    <!-- Main body length height width -->
 
    <xacro:property name="base_height" value="0.2" />
-   <!-- in meter -->
    <xacro:property name="base_width" value="0.2" />
-   <!-- in meter -->
    <xacro:property name="base_lenght" value="0.5" />
-   <!-- in meter -->
    <xacro:property name="base_mass" value="20.0" />
-   <!-- in kg -->
 
    <xacro:property name="rocker_height" value="0.1" />
-   <!-- in meter -->
    <xacro:property name="rocker_width" value="0.1" />
-   <!-- in meter -->
    <xacro:property name="rocker_lenght" value="0.7" />
-   <!-- in meter -->
    <xacro:property name="rocker_mass" value="2.0" />
-   <!-- in kg -->
+   <xacro:property name="rocker_offsetZ" value="0.2" />
 
 
    <!-- Macro for calculating inertia of cylinder -->
@@ -72,8 +65,8 @@
    <!-- It is necessary as gazebo does not support inertia for the root link -->
    <!-- Do not call it world as it is reserved for robot that must be fixed to the world -->
 
-   <link name="base_link">
-   </link>
+  <link name="base_link">
+   </link> 
 
 
    <gazebo reference="base_link">
@@ -122,21 +115,21 @@
    <xacro:macro name="rocker" params="side parent translateX translateY translateZ flipY">
       <link name="${side}_rocker">
          <visual>
-            <origin xyz="0 ${flipY * rocker_width / 2} 0" rpy="0 0 0"/>
+            <origin xyz="0 ${flipY * rocker_width / 2} ${-rocker_offsetZ}" rpy="0 0 0"/>
             <geometry>
                <box size="${rocker_lenght} ${rocker_width} ${rocker_height}" />
             </geometry>
             <material name="Red" />
          </visual>
          <collision>
-            <origin xyz="0 ${flipY * rocker_width / 2} 0" rpy="0 0 0"/>
+            <origin xyz="0 ${flipY * rocker_width / 2} ${-rocker_offsetZ}" rpy="0 0 0"/>
             <geometry>
                <box size="${rocker_lenght} ${rocker_width} ${rocker_height}" />
             </geometry>
          </collision>
          <inertial>
             <mass value="${rocker_mass}" />
-            <origin xyz="0 0 0" />
+            <origin xyz="0 ${flipY * rocker_width / 2} ${-rocker_offsetZ}" rpy="0 0 0"/>
             <box_inertia m="${rocker_mass}" x="${rocker_lenght}" y="${rocker_width}" z="${rocker_height}" />
          </inertial>
       </link>
@@ -146,11 +139,11 @@
          <parent link="${parent}"/>
          <child link="${side}_rocker"/>
          <axis xyz="0 1 0"/>
-         <limit lower="${-30 * DEG_TO_RAD}" upper="${30 * DEG_TO_RAD}" effort="10000.0" velocity="100000.0"/>
-         <mimic joint="right_rocker_joint" />
+         <dynamics damping="0" friction="0.5"/>
+         <limit lower="${-30 * DEG_TO_RAD}" upper="${30 * DEG_TO_RAD}" velocity="1000" effort="1000"/>
       </joint>
 
-      <!-- <transmission name="${side}_rocker_joint_trans" >
+      <transmission name="${side}_rocker_joint_trans">
          <type>transmission_interface/SimpleTransmission</type>
          <joint name="${side}_rocker_joint">
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
@@ -159,14 +152,14 @@
             <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
             <mechanicalReduction>1</mechanicalReduction>
          </actuator>
-      </transmission> -->
+      </transmission>
 
-      <wheel fb="front" lr="${side}" parent="${side}_rocker" translateX="${rocker_lenght / 2}" translateY="${flipY * rocker_width}" translateZ="${-rocker_height / 2}" flipY="${flipY}" flipZ="1"/>
-      <wheel fb="back" lr="${side}" parent="${side}_rocker" translateX="${-rocker_lenght / 2}" translateY="${flipY * rocker_width}" translateZ="${-rocker_height / 2}" flipY="${flipY}" flipZ="-1"/>
+      <wheel fb="front" lr="${side}" parent="${side}_rocker" translateX="${rocker_lenght / 2}" translateY="${flipY * rocker_width}" translateZ="${-rocker_offsetZ -rocker_height / 2}" flipY="${flipY}" flipZ="1"/>
+      <wheel fb="back" lr="${side}" parent="${side}_rocker" translateX="${-rocker_lenght / 2}" translateY="${flipY * rocker_width}" translateZ="${-rocker_offsetZ -rocker_height / 2}" flipY="${flipY}" flipZ="-1"/>
    </xacro:macro>
 
-   <rocker side="left" parent="chassis" translateX="0" translateY="${base_width / 2}" translateZ="${-base_height / 2}" flipY="1" />
-   <rocker side="right" parent="chassis" translateX="0" translateY="${-base_width / 2}" translateZ="${-base_height / 2}" flipY="-1" />
+   <rocker side="left" parent="chassis" translateX="0" translateY="${base_width / 2}" translateZ="${-base_height / 3}" flipY="1" />
+   <rocker side="right" parent="chassis" translateX="0" translateY="${-base_width / 2}" translateZ="${-base_height / 3}" flipY="-1" />
 
 
    <!-- Wheel Definition for simulation -->
@@ -176,7 +169,7 @@
    <wheel fb="back" lr="left" parent="chassis" translateX="-0.4" translateY="${1*(base_width/2+0.04)}" translateZ="-0.065" flipY="1"/> -->
 
    <!-- Skid Steering Drive for 4 wheel robot for simulation -->
-   <gazebo>
+   <!-- <gazebo>
       <plugin name="drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
          <updateRate>100</updateRate>
          <robotNameSpace>/</robotNameSpace>
@@ -197,7 +190,7 @@
          <covariance_y>0.00100</covariance_y>
          <covariance_yaw>0.010000</covariance_yaw>
       </plugin>
-   </gazebo>
+   </gazebo> -->
 
    <!-- Publishing joint states from Gazebo simulator -->
    <!-- fixed links are not published -->
@@ -218,14 +211,20 @@
       </plugin>
    </gazebo>
 
-   <!-- <gazebo>
+   <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+         <robotNamespace>/</robotNamespace>
+      </plugin>
+   </gazebo>
+
+
+   <gazebo>
       <plugin name="mimic_rocker" filename="libroboticsgroup_gazebo_mimic_joint_plugin.so">
          <joint>left_rocker_joint</joint>
-         <mimicJoint>right_rocker</mimicJoint>
+         <mimicJoint>right_rocker_joint</mimicJoint>
          <multiplier>-1</multiplier>
-         <maxEffort>1000</maxEffort>
-         <hasPID/>
+         <hasPID />
       </plugin>
-   </gazebo> -->
+   </gazebo>
 
 </robot>

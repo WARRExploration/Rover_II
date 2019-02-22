@@ -1,26 +1,77 @@
 <?xml version="1.0"?>
 
-<robot name="wheel" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="wheel" 
+   xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<xacro:property name="wheel_radius" value="0.15" />
-<xacro:property name="wheel_width"  value="0.2"  />
-<xacro:property name="wheel_mass"   value="1"  />  <!-- in kg -->
+   <xacro:property name="wheel_radius" value="0.15" />
+   <xacro:property name="wheel_width" value="0.2" />
+   <xacro:property name="wheel_mass" value="1" />
+   <!-- in kg -->
 
 
    <!-- Macro for calculating inertia of cylindric wheel -->
    <xacro:macro name="wheel_inertia" params="m r h">
-      <inertia ixx="${ m * ( 3 * r*r + h*h ) / 12}" ixy="0" ixz="0"
-               iyy="${ m * ( 3 * r*r + h*h ) / 12}" iyz="0"
-               izz="${ m * r / 2}" />
+      <inertia ixx="${ m * ( 3 * r*r + h*h ) / 12}" ixy="0" ixz="0" iyy="${ m * ( 3 * r*r + h*h ) / 12}" iyz="0" izz="${ m * r / 2}" />
+   </xacro:macro>
+
+
+   <xacro:macro name="grouser" params="links_qty max_qty parent flipY flipZ">
+
+      <link name="${flipY}${flipZ}_${links_qty}">
+         <visual>
+            <origin xyz="0 ${flipY * wheel_width / 2} ${wheel_radius}" rpy="0 0 ${flipY * flipZ * 30 * DEG_TO_RAD}"/>
+            <geometry>
+               <box size="0.01 ${wheel_width} 0.05"/>
+            </geometry>
+            <material name="Red" />
+         </visual>
+         <collision>
+            <origin xyz="0 ${flipY * wheel_width / 2} ${wheel_radius}" rpy="0 0 ${flipY * flipZ * 30 * DEG_TO_RAD}"/>
+            <geometry>
+               <box size="0.01 ${wheel_width} 0.05"/>
+            </geometry>
+            <material name="Red" />
+         </collision>
+         <inertial>
+            <mass value="0.01" />
+            <origin xyz="0 ${flipY * wheel_width / 2} ${wheel_radius}" rpy="0 0 ${flipY * flipZ * 30 * DEG_TO_RAD}"/>
+            <box_inertia m="0.01" x="0.01" y="${wheel_width}" z="0.05" />
+         </inertial>
+      </link>
+
+      <joint name="${flipY}${flipZ}_${links_qty}_joint" type="fixed">
+         <parent link="${parent}"/>
+         <child link="${flipY}${flipZ}_${links_qty}" />
+         <origin xyz="0.0 0.0 0.0" rpy="0 ${links_qty * 360 / max_qty * DEG_TO_RAD} 0" />
+      </joint>
+
+
+      <gazebo reference="${flipY}${flipZ}_${links_qty}">
+         <mu1 value="10"/>
+         <mu2 value="0.1" />
+         <!-- <mu2 value="1" /> -->
+         <!-- <fdir1 value="0.7071 ${-flipY * flipZ * 0.7071} 0" /> -->
+         <fdir1 value="1 0 0" />
+
+         <kp value="10000000.0" />
+         <kd value="1.0" />
+         <material>Gazebo/Black</material>
+         <turnGravityOff>false</turnGravityOff>
+      </gazebo>
+
+      <xacro:if value="${links_qty}">
+         <xacro:grouser links_qty="${links_qty - 1}" max_qty="${max_qty}" parent="${parent}" flipY="${flipY}" flipZ="${flipZ}" />
+      </xacro:if>
    </xacro:macro>
 
 
    <xacro:macro name="wheel" params="fb lr parent translateX translateY translateZ flipY flipZ">
-     
-   <!-- fb: front, back; lr: left right -->
+
+      <!-- fb: front, back; lr: left right -->
       <link name="${fb}_${lr}_wheel">
          <visual>
-            <origin xyz="0 ${flipY * wheel_width / 2} 0" rpy="${flipY*M_PI/2} 0 0"/>  <!-- make sure the wheel is in the correct position -->
+            <origin xyz="0 ${flipY * wheel_width / 2} 0" rpy="${flipY*M_PI/2} 0 0"/>
+            <!-- make sure the wheel is in the correct position -->
             <geometry>
                <cylinder length="${wheel_width}" radius="${wheel_radius}" />
             </geometry>
@@ -38,46 +89,39 @@
             <wheel_inertia m="${wheel_mass}" r="${wheel_radius}" h="${wheel_width}" />
          </inertial>
       </link>
-   
 
-      <gazebo reference="${fb}_${lr}_wheel" >
-         <mu1 value="1.0"/>
-         <!-- <mu2 value="1.0" /> -->
-         <mu2 value="0.1" />
-         <kp  value="10000000.0" />
-         <kd  value="1.0" />
-         <fdir1 value="1 ${flipY * flipZ} 0" />
-         <slip1>0.5</slip1>
-         <slip2>0</slip2>
-         <material>Gazebo/Black</material>
-         <turnGravityOff>false</turnGravityOff>  
+
+      <gazebo reference="${fb}_${lr}_wheel">
+         <material>Gazebo/Blue</material>
+         <turnGravityOff>false</turnGravityOff>
       </gazebo>
 
 
       <joint name="${fb}_${lr}_wheel_joint" type="continuous">
          <parent link="${parent}"/>
          <child link="${fb}_${lr}_wheel" />
-         <origin xyz="${translateX} ${translateY} ${translateZ}" rpy="0 0 0" />
+         <origin xyz="${translateX} ${translateY} ${translateZ}" rpy="${flipY * 1 * DEG_TO_RAD} 0 0" />
          <limit effort="1000" velocity="1000" />
-         <axis xyz="0 1 0" /> 
+         <axis xyz="0 1 0" />
          <joint_properties damping="0.0" friction="0.0" />
          <type>transmission_interface/SimpleTransmission</type>
       </joint>
 
 
       <!-- Transmission is important to link the joint and the controller -->
-      
-      <transmission name="${fb}_${lr}_wheel_joint_trans" >
+
+      <transmission name="${fb}_${lr}_wheel_joint_trans">
          <type>transmission_interface/SimpleTransmission</type>
          <joint name="${fb}_${lr}_wheel_joint">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
          </joint>
          <actuator name="${fb}_${lr}_wheel_joint_motor">
-            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
-            <mechanicalReduction>1</mechanicalReduction> <!-- It is not true: we uses motor with gearbox and ration of 75 -->
+            <mechanicalReduction>1</mechanicalReduction>            <!-- It is not true: we uses motor with gearbox and ration of 75 -->
          </actuator>
       </transmission>
-          
+
+      <xacro:grouser links_qty="20" max_qty="20" parent="${fb}_${lr}_wheel" flipY="${flipY}" flipZ="${flipZ}"/>
+      
    </xacro:macro>
 
 
