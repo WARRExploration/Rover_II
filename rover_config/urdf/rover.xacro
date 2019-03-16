@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
-<robot name="test" 
+<robot name="nimrod" 
    xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-   <xacro:include filename="$(find rover_config)/urdf/wheel.urdf.xacro" />
+   <xacro:include filename="$(find rover_config)/urdf/wheel.xacro" />
 
 
    <!-- Defining the colors used in this robot -->
@@ -65,7 +65,7 @@
    <!-- It is necessary as gazebo does not support inertia for the root link -->
    <!-- Do not call it world as it is reserved for robot that must be fixed to the world -->
 
-  <link name="base_link">
+   <link name="base_link">
    </link> 
 
 
@@ -160,37 +160,6 @@
 
    <rocker side="left" parent="chassis" translateX="0" translateY="${base_width / 2}" translateZ="${-base_height / 3}" flipY="1" />
    <rocker side="right" parent="chassis" translateX="0" translateY="${-base_width / 2}" translateZ="${-base_height / 3}" flipY="-1" />
-
-
-   <!-- Wheel Definition for simulation -->
-   <!-- <wheel fb="front" lr="right" parent="chassis" translateX="0.4" translateY="${-1*(base_width/2+0.04)}" translateZ="-0.065" flipY="1"/>
-   <wheel fb="front" lr="left" parent="chassis" translateX="0.4" translateY="${1*(base_width/2+0.04)}" translateZ="-0.065" flipY="1"/>
-   <wheel fb="back" lr="right" parent="chassis" translateX="-0.4" translateY="${-1*(base_width/2+0.04)}" translateZ="-0.065" flipY="1"/>
-   <wheel fb="back" lr="left" parent="chassis" translateX="-0.4" translateY="${1*(base_width/2+0.04)}" translateZ="-0.065" flipY="1"/> -->
-
-   <!-- Skid Steering Drive for 4 wheel robot for simulation -->
-   <!-- <gazebo>
-      <plugin name="drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-         <updateRate>100</updateRate>
-         <robotNameSpace>/</robotNameSpace>
-         <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>
-         <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
-         <leftRearJoint>back_left_wheel_joint</leftRearJoint>
-         <rightRearJoint>back_right_wheel_joint</rightRearJoint>
-         <wheelSeparation>${rocker_lenght}</wheelSeparation>
-         <wheelDiameter>0.32</wheelDiameter>
-         <robotBaseFrame>base_link</robotBaseFrame>
-         <torque>100</torque>
-         <topicName>cmd_vel</topicName>
-         <broadcastTF>true</broadcastTF>
-         <commandTopic>cmd_vel</commandTopic>
-         <odometryTopic>odom</odometryTopic>
-         <odometryFrame>odom</odometryFrame>
-         <covariance_x>0.00100</covariance_x>
-         <covariance_y>0.00100</covariance_y>
-         <covariance_yaw>0.010000</covariance_yaw>
-      </plugin>
-   </gazebo> -->
 
    <!-- Publishing joint states from Gazebo simulator -->
    <!-- fixed links are not published -->
