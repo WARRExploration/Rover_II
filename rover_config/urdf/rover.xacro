@@ -234,7 +234,7 @@
   </gazebo>
   
   <!-- IMU plugin sensor -->
-  
+  <!-- computed by seperate plugin, without gravity -->
   <gazebo>
     <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
       <alwaysOn>true</alwaysOn>
@@ -247,18 +247,18 @@
   </gazebo>
   
   <!-- IMU gazebo sensor -->
-  
+  <!-- computed by gazebo, with gravity -->  
   <gazebo reference="chassis">
     <gravity>true</gravity>
     <sensor name="imu_sensor" type="imu">
       <always_on>true</always_on>
-      <update_rate>100</update_rate>
+      <update_rate>50</update_rate>
       <visualize>true</visualize>
       <topic>__default_topic__</topic>
       <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
         <topicName>sensors/imu_gazebo</topicName>
         <bodyName>chassis</bodyName>
-        <updateRateHZ>10.0</updateRateHZ>
+        <updateRateHZ>20.0</updateRateHZ>
         <gaussianNoise>0.0</gaussianNoise>
         <xyzOffset>0 0 0</xyzOffset>
         <rpyOffset>0 0 0</rpyOffset>
