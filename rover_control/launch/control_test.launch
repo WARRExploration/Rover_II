@@ -1,0 +1,28 @@
+<launch>
+
+  <arg name="model" default="$(find rover_config)/urdf/rover.xacro"/>
+  <param name="robot_description" command="xacro --inorder '$(arg model)'" />
+
+  <node name="motor_control" pkg="rover_control" type="rover_control_node" respawn="false"
+    output="screen" />
+	
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam command="load" file="$(find rover_control)/config/joints.yaml" ns="rover_joint_state_controller" />
+  <rosparam command="load" file="$(find rover_control)/config/diffdrive.yaml" ns="rover_diff_drive_controller" />
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="rover_joint_state_controller rover_diff_drive_controller" />
+
+  <remap from="/cmd_vel" to="/rover_diff_drive_controller/cmd_vel"/>
+
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering" />
+
+  <!-- convert joint states to TF transforms for rviz, etc
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/rrbot/joint_states" />
+  </node>
+-->
+  
+</launch>
