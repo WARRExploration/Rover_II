@@ -11,11 +11,21 @@ int main(int argc, char** argv)
     nh.setCallbackQueue(&queue);
 
     const char* joints[] = {"front_left_wheel_joint", "back_left_wheel_joint", "front_right_wheel_joint", "back_right_wheel_joint"};
-    unsigned int can_ids[] = {0, 1, 2, 3};
+    unsigned int can_ids[] = {0x001, 0x002, 0x003, 0x004};
+    unsigned int own_id = 0x123;
     rover_interface ri (joints);
-    ri.initCAN("slcan1", can_ids);
+    if (ri.initCAN("slcan0", can_ids, own_id, 1) == 0)
+    {
+        ROS_INFO("SocketCAN interface established.");
+    }
+    else
+    {
+        ROS_ERROR("SocketCAN interface could not be established.");
+    }
 
     controller_manager::ControllerManager cm(&ri,nh);
+
+    unsigned int status;
 
     ros::AsyncSpinner spinner(4, &queue);
     spinner.start();
@@ -27,7 +37,31 @@ int main(int argc, char** argv)
     {
          ros::Duration d = ros::Time::now() - ts;
          ts = ros::Time::now();
-         ri.setSpeed();
+         status = ri.setSpeed();
+         if(status != STATUS_OK)
+         {
+             ROS_INFO_STREAM("SocketCAN Status Error: " << status);
+         };
+         status = ri.getSpeed(can_ids[0]);
+         if(status != STATUS_OK)
+         {
+             ROS_INFO_STREAM("SocketCAN Status Error: " << status);
+         }
+         status = ri.getSpeed(can_ids[1]);
+         if(status != STATUS_OK)
+         {
+             ROS_INFO_STREAM("SocketCAN Status Error: " << status);
+         }
+         status = ri.getSpeed(can_ids[2]);
+         if(status != STATUS_OK)
+         {
+             ROS_INFO_STREAM("SocketCAN Status Error: " << status);
+         }
+         status = ri.getSpeed(can_ids[3]);
+         if(status != STATUS_OK)
+         {
+             ROS_INFO_STREAM("SocketCAN Status Error: " << status);
+         }
          cm.update(ts, d);
          rate.sleep();
     }

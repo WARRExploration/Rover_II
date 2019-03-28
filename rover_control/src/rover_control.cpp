@@ -34,12 +34,15 @@ rover_interface::rover_interface(const char** joint_names)
     registerInterface(&jnt_vel_interface);
 }
 
-int rover_interface::initCAN(const char *ifname, unsigned int *can_id)
+int rover_interface::initCAN(const char *ifname, unsigned int *can_id, unsigned int own_id, unsigned int read_timeout_ms)
 {
+    this->own_id = own_id;
+    can_timeout = read_timeout_ms;
+
     if((can_socket = socket(PF_CAN, SOCK_RAW, CAN_RAW)) < 0)
     {
-        perror("Error while opening socket");
-        return -1;
+        // Error while opening socket
+        return STATUS_SOCKET_CREATE_ERROR;
     }
 
     strcpy(ifr.ifr_name, ifname);
@@ -48,30 +51,75 @@ int rover_interface::initCAN(const char *ifname, unsigned int *can_id)
     addr.can_family  = AF_CAN;
     addr.can_ifindex = ifr.ifr_ifindex;
 
+    struct timeval tv;
+    tv.tv_sec = 0;
+    tv.tv_usec = read_timeout_ms * 1000;  // Not init'ing this can cause strange errors
+    setsockopt(can_socket, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv,sizeof(struct timeval));
+
     if(bind(can_socket, (struct sockaddr *)&addr, sizeof(addr)) < 0)
     {
-        perror("Error in socket bind");
-        return -2;
+        // Error in socket bind
+        return STATUS_BIND_ERROR;
     }
-    this->can_id[0] = can_id[0];
-    this->can_id[1] = can_id[1];
-    this->can_id[2] = can_id[2];
-    this->can_id[3] = can_id[3];
+    this->can_ids[0] = can_ids[0];
+    this->can_ids[1] = can_ids[1];
+    this->can_ids[2] = can_ids[2];
+    this->can_ids[3] = can_ids[3];
+
+    return STATUS_OK;
 }
 
 int rover_interface::setSpeed()
 {
-    unsigned int totalBytes = 0;
     for (int i=0; i < 4; i++)
     {
-        frame.can_id  = can_id[i];
-        frame.can_dlc = 4;
-        frame.data[0] = 0xFF & (unsigned int) cmd[i];
-        frame.data[1] = 0xFF & (((unsigned int) cmd[i]) >> 8);
-        frame.data[2] = 0xFF & (((unsigned int) cmd[i]) >> 16);
-        frame.data[3] = 0xFF & (((unsigned int) cmd[i]) >> 24);
-        totalBytes += ::write(can_socket, &frame, sizeof(struct can_frame));
+        if (std::fabs(cmd[i] - prev_cmd[i]) > 1E-5)
+        {
+            //ROS_INFO_STREAM("Prev_cmd: " << prev_cmd[i] << " cmd: " << cmd[i]);
+            prev_cmd[i] = cmd[i];
+            frame.can_id  = can_ids[i];
+            frame.can_dlc = 5;
+            frame.data[0] = CAN_SET_SPEED;
+            frame.data[1] = 0xFF & (unsigned int) cmd[i];
+            frame.data[2] = 0xFF & (((unsigned int) cmd[i]) >> 8);
+            frame.data[3] = 0xFF & (((unsigned int) cmd[i]) >> 16);
+            frame.data[4] = 0xFF & (((unsigned int) cmd[i]) >> 24);
+            if(::write(can_socket, &frame, sizeof(struct can_frame)) != CAN_MTU)
+            {
+                return STATUS_WRITE_ERROR;
+            };
+        }
     }
-    //printf("Wrote %d bytes\n", nbytes);
-    return totalBytes;
+    return STATUS_OK;
+}
+
+int rover_interface::getSpeed(unsigned int can_id)
+{
+    frame.can_id = can_id;
+    frame.can_dlc = 1;
+    frame.data[0] = CAN_GET_SPEED;
+    if (::write(can_socket, &frame, sizeof(struct can_frame)) != CAN_MTU)
+    {
+        return STATUS_WRITE_ERROR;
+    }
+
+    struct can_frame resp;
+    int readBytes = ::read(can_socket, &resp, CANFD_MTU);
+    if (readBytes != CAN_MTU && readBytes != CANFD_MTU)
+    {
+        return STATUS_READ_ERROR;
+    }
+    if (resp.can_id != own_id)
+    {
+        // Wrong id
+        return STATUS_FALSE_ID;
+    }
+    if (resp.can_dlc != 5)
+    {
+        // wrong message length
+        return STATUS_FALSE_MSG_LEN;
+    }
+    vel[can_id] = (double) (resp.data[1] || resp.data[2] << 8 || resp.data[3] << 16 || resp.data[4] << 24);
+
+    return STATUS_OK;
 }
