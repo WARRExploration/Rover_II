@@ -14,3 +14,6 @@ We have a couple of other repositories to structure our code a little bit.
 * [Arm](https://github.com/WARRExploration/rover_arm)
 * [GUI](https://github.com/WARRExploration/rover_gui)
 * [Electronics](https://github.com/WARRExploration/rover_electronics)
+
+## Wiki
+To get more information about how to launch different subsystems and on how some of them work please take a look at the [main wiki in this repository](https://github.com/WARRExploration/Rover_II/wiki) or go to the wikis of the respective repositories (they are all linked to the main wiki)
