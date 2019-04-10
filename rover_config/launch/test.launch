@@ -11,11 +11,7 @@
   <rosparam command="load"
             file="$(find rover_control)/config/joints.yaml"
             ns="rover_joint_state_controller" />
-  <rosparam command="load"
-            file="$(find rover_control)/config/arm.yaml"
-            ns="rover_arm_controller" />
-
+ 
   <node name="rover_controller_spawner" pkg="controller_manager" type="spawner"
-    args="rover_joint_state_controller
-          rover_arm_controller"/>
+    args="rover_joint_state_controller"/>
 </launch>
