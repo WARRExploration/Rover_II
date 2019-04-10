@@ -34,6 +34,7 @@ rover_interface::rover_interface(const char** joint_names)
     registerInterface(&jnt_vel_interface);
 }
 
+/*
 int rover_interface::initCAN(const char *ifname, unsigned int *can_id, unsigned int own_id, unsigned int read_timeout_ms)
 {
     this->own_id = own_id;
@@ -123,3 +124,4 @@ int rover_interface::getSpeed(unsigned int can_id)
 
     return STATUS_OK;
 }
+*/

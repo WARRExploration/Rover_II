@@ -6,6 +6,7 @@
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/robot_hw.h>
 
+/*
 extern "C" {
     // Standard libs
     #include <stdio.h>
@@ -39,22 +40,23 @@ enum SocketCanStatus
     STATUS_FALSE_ID = 5,
     STATUS_FALSE_MSG_LEN = 6,
 };
+*/
 
 class rover_interface : public hardware_interface::RobotHW
 {
 public:
     rover_interface(const char** joint_names);
     //virtual ~Motor();
-    int initCAN(const char *ifname, unsigned int *can_id, unsigned int own_id, unsigned int read_timeout_ms);
-    int setSpeed();
-    int getSpeed(unsigned int can_id);
+    //int initCAN(const char *ifname, unsigned int *can_id, unsigned int own_id, unsigned int read_timeout_ms);
+    //int setSpeed();
+    //int getSpeed(unsigned int can_id);
 
 private:
     int can_socket;
     unsigned int can_timeout;
-    struct sockaddr_can addr;
-    struct can_frame frame;
-    struct ifreq ifr;
+    //struct sockaddr_can addr;
+    //struct can_frame frame;
+    //struct ifreq ifr;
     unsigned int own_id;
     unsigned int can_ids[4];
 
