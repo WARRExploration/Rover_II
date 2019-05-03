@@ -1,32 +1,32 @@
-#include <rover_control.hpp>
-#include "controller_manager/controller_manager.h"
-#include "hardware_interface/actuator_state_interface.h"
-#include <ros/callback_queue.h>
-
 #include <iostream>
 #include <cstdlib>
 #include <unistd.h>
 #include <uavcan/uavcan.hpp>
 #include <uavcan_linux/uavcan_linux.hpp>
 
+#include <rover_control.hpp>
+#include "controller_manager/controller_manager.h"
+#include "hardware_interface/actuator_state_interface.h"
+#include <ros/callback_queue.h>
+
 /**
  * These functions are platform dependent, so they are not included in this example.
  * Refer to the relevant platform documentation to learn how to implement them.
  */
-uavcan::ICanDriver& getCanDriver()
-{
-    static uavcan_linux::SystemClock clock;
-    return clock;
-}
+ uavcan::ISystemClock& getSystemClock()
+ {
+     static uavcan_linux::SystemClock clock;
+     return clock;
+ }
 
-uavcan::ISystemClock& getSystemClock()
+uavcan::ICanDriver& getCanDriver()
 {
     static uavcan_linux::SocketCanDriver driver(dynamic_cast<const uavcan_linux::SystemClock&>(getSystemClock()));
     if (driver.getNumIfaces() == 0)     // Will be executed once
     {
         if (driver.addIface("slcan0") < 0)
         {
-            ROS_ERROR("Failed to add iface");
+            //ROS_ERROR("Failed to add iface");
         }
     }
     return driver;
@@ -76,10 +76,11 @@ int main(int argc, char** argv)
      * Start the node.
      * All returnable error codes are listed in the header file uavcan/error.hpp.
      */
+
     const int node_start_res = node.start();
     if (node_start_res < 0)
     {
-        ROS_ERROR("Failed to start the node; error: " + std::to_string(node_start_res));
+        ROS_ERROR("Failed to start the node; error:%d", node_start_res);
     }
 
     /*
@@ -179,7 +180,7 @@ int main(int argc, char** argv)
         {
             node.setHealthError();
         }
-        ROS_INFO("Random value: %f", random);
+        //ROS_INFO("Random value: %f", random);
         cm.update(ts, d);
         rate.sleep();
     }
