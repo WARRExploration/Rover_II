@@ -17,7 +17,7 @@
     <xacro:property name="gripper_len" value="0.07" />
     <xacro:property name="gripper_rad" value="0.01" />
     <xacro:property name="offset_gripper" value="0.01" />
-    <xacro:property name="lim_eff" value="30" />
+    <xacro:property name="lim_eff" value="300" />
     <xacro:property name="lim_low" value="-0.78539816339" />
     <xacro:property name="lim_up" value="0.78539816339" />
     <xacro:property name="lim_vel" value="1.571" />
@@ -271,7 +271,7 @@
         </link>
         <!-- Transmission is important to link the joint and the controller -->
 
-        <!--
+        
         <transmission name="joint_base_trans">
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="joint_base">
@@ -350,8 +350,8 @@
             <actuator name="joint6_motor">
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
-        </transmission>
-        -->
+            </transmission>
+        
     </xacro:macro>
 
 </robot>
