@@ -1,0 +1,155 @@
+{
+  "keys": {},
+  "groups": {
+    "pluginmanager": {
+      "keys": {
+        "running-plugins": {
+          "type": "repr",
+          "repr": "{u'rqt_reconfigure/Param': [1], u'rqt_plot/Plot': [1], u'rqt_publisher/Publisher': [1]}"
+        }
+      },
+      "groups": {
+        "plugin__rqt_plot__Plot__1": {
+          "keys": {},
+          "groups": {
+            "dock_widget__DataPlotWidget": {
+              "keys": {
+                "dockable": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "parent": {
+                  "type": "repr",
+                  "repr": "None"
+                },
+                "dock_widget_title": {
+                  "type": "repr",
+                  "repr": "u'M&atPlot'"
+                }
+              },
+              "groups": {}
+            },
+            "plugin": {
+              "keys": {
+                "autoscroll": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "plot_type": {
+                  "type": "repr",
+                  "repr": "1"
+                },
+                "topics": {
+                  "type": "repr",
+                  "repr": "[u'/nimrod/joint2/state/process_value', u'/nimrod/joint1/state/process_value', u'/nimrod/joint4/command/data', u'/nimrod/joint3/state/process_value', u'/nimrod/joint6/state/process_value', u'/nimrod/joint2/command/data', u'/nimrod/joint_base/state/process_value', u'/nimrod/joint6/command/data', u'/nimrod/joint5/state/process_value', u'/nimrod/joint0/command/data', u'/nimrod/joint5/command/data', u'/nimrod/joint1/command/data', u'/nimrod/joint_base/command/data', u'/nimrod/joint4/state/process_value', u'/nimrod/joint3/command/data', u'/nimrod/joint0/state/process_value']"
+                },
+                "y_limits": {
+                  "type": "repr",
+                  "repr": "[-1.1489361724547678, 1.1250873947605307]"
+                },
+                "x_limits": {
+                  "type": "repr",
+                  "repr": "[108.09616620798656, 113.42699999999999]"
+                }
+              },
+              "groups": {}
+            }
+          }
+        },
+        "plugin__rqt_publisher__Publisher__1": {
+          "keys": {},
+          "groups": {
+            "dock_widget__PublisherWidget": {
+              "keys": {
+                "dockable": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "parent": {
+                  "type": "repr",
+                  "repr": "None"
+                },
+                "dock_widget_title": {
+                  "type": "repr",
+                  "repr": "u'&Message Publisher'"
+                }
+              },
+              "groups": {}
+            },
+            "plugin": {
+              "keys": {
+                "publishers": {
+                  "type": "repr",
+                  "repr": "u\"[{'type_name': 'std_msgs/Float64', 'topic_name': '/nimrod/joint0/command', 'enabled': False, 'rate': 100.0, 'expressions': {u'/nimrod/joint0/command/data': '4*round(0.25*sin(i/100*2),1)*0.7'}, 'publisher_id': 0, 'counter': 621}, {'type_name': 'std_msgs/Float64', 'topic_name': '/nimrod/joint1/command', 'enabled': False, 'rate': 100.0, 'expressions': {u'/nimrod/joint1/command/data': 'round(sin(i/100*2+50), 0)*0.4'}, 'publisher_id': 1, 'counter': 617}, {'type_name': 'std_msgs/Float64', 'topic_name': '/nimrod/joint2/command', 'enabled': False, 'rate': 100.0, 'expressions': {u'/nimrod/joint2/command/data': 'round(sin(i/100*3+210))*0.5'}, 'publisher_id': 2, 'counter': 611}, {'type_name': 'std_msgs/Float64', 'topic_name': '/nimrod/joint3/command', 'enabled': False, 'rate': 100.0, 'expressions': {u'/nimrod/joint3/command/data': 'round(0.7*sin(i/100*4+21))*0.5'}, 'publisher_id': 3, 'counter': 606}, {'type_name': 'std_msgs/Float64', 'topic_name': '/nimrod/joint4/command', 'enabled': False, 'rate': 100.0, 'expressions': {u'/nimrod/joint4/command/data': 'round(sin(i/100*6+50))*0.4'}, 'publisher_id': 4, 'counter': 601}, {'type_name': 'std_msgs/Float64', 'topic_name': '/nimrod/joint5/command', 'enabled': False, 'rate': 100.0, 'expressions': {u'/nimrod/joint5/command/data': 'round(0.9*sin(i/100*5.5+60))*0.7'}, 'publisher_id': 5, 'counter': 596}, {'type_name': 'std_msgs/Float64', 'topic_name': '/nimrod/joint6/command', 'enabled': False, 'rate': 100.0, 'expressions': {u'/nimrod/joint6/command/data': '-round(0.9*sin(i/100*5.5+60))*0.7'}, 'publisher_id': 6, 'counter': 592}, {'topic_name': '/nimrod/joint_base/command', 'type_name': 'std_msgs/Float64', 'enabled': False, 'rate': 100.0, 'expressions': {u'/nimrod/joint_base/command/data': 'sin(i/100)'}, 'publisher_id': 7, 'counter': 586}]\""
+                }
+              },
+              "groups": {}
+            }
+          }
+        },
+        "plugin__rqt_reconfigure__Param__1": {
+          "keys": {},
+          "groups": {
+            "dock_widget___plugincontainer_top_widget": {
+              "keys": {
+                "dockable": {
+                  "type": "repr",
+                  "repr": "True"
+                },
+                "parent": {
+                  "type": "repr",
+                  "repr": "None"
+                },
+                "dock_widget_title": {
+                  "type": "repr",
+                  "repr": "u'&Dynamic Reconfigure'"
+                }
+              },
+              "groups": {}
+            },
+            "plugin": {
+              "keys": {
+                "splitter": {
+                  "type": "repr(QByteArray.hex)",
+                  "repr(QByteArray.hex)": "QtCore.QByteArray('000000ff0000000100000002000000a80000006401ffffffff010000000100')",
+                  "pretty-print": "         d     "
+                },
+                "_splitter": {
+                  "type": "repr(QByteArray.hex)",
+                  "repr(QByteArray.hex)": "QtCore.QByteArray('000000ff0000000100000002000003d5000000000100000009010000000200')",
+                  "pretty-print": "               "
+                }
+              },
+              "groups": {}
+            }
+          }
+        }
+      }
+    },
+    "mainwindow": {
+      "keys": {
+        "geometry": {
+          "type": "repr(QByteArray.hex)",
+          "repr(QByteArray.hex)": "QtCore.QByteArray('01d9d0cb0002000000000038000000000000077f0000043700000038000000190000077f0000043700000000000000000780')",
+          "pretty-print": "     8     7 8     7     "
+        },
+        "state": {
+          "type": "repr(QByteArray.hex)",
+          "repr(QByteArray.hex)": "QtCore.QByteArray('000000ff00000000fd000000010000000300000748000003f4fc0100000002fc00000000000004cc0000021800fffffffc0200000002fb00000058007200710074005f007000750062006c00690073006800650072005f005f005000750062006c00690073006800650072005f005f0031005f005f005000750062006c006900730068006500720057006900640067006500740100000019000001e20000009e01000003fb00000042007200710074005f0070006c006f0074005f005f0050006c006f0074005f005f0031005f005f00440061007400610050006c006f007400570069006400670065007401000001fc000002110000009001000003fb0000006c007200710074005f007200650063006f006e006600690067007500720065005f005f0050006100720061006d005f005f0031005f005f005f0070006c007500670069006e0063006f006e007400610069006e00650072005f0074006f0070005f00770069006400670065007401000004cd0000027b000000dd01000003000007480000000000000004000000040000000800000008fc00000001000000030000000100000036004d0069006e0069006d0069007a006500640044006f0063006b00570069006400670065007400730054006f006f006c0062006100720000000000ffffffff0000000000000000')",
+          "pretty-print": "                                                                                                                                                                                          {     H                                                      "
+        }
+      },
+      "groups": {
+        "toolbar_areas": {
+          "keys": {
+            "MinimizedDockWidgetsToolbar": {
+              "type": "repr",
+              "repr": "8"
+            }
+          },
+          "groups": {}
+        }
+      }
+    }
+  }
+}

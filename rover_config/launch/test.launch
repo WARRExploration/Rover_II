@@ -2,13 +2,12 @@
   <arg name="model" default="$(find rover_config)/urdf/testarm.xacro"/>
   <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
   
-  <rosparam command="load"
-            file="$(find rover_control)/config/nimrod_control.yaml"/>
+  <rosparam command="load" ns="/nimrod"
+            file="$(find rover_control)/config/arm_control.yaml"/>
   
   
   <node name="rover_controller_spawner" pkg="controller_manager" type="spawner"
-        ns="/nimrod" args="joint_base_position_controller joint0_position_controller joint1_position_controller joint2_position_controller joint3_position_controller joint4_position_controller joint5_position_controller joint6_position_controller joint_state_controller"/>
-<!--     args="rover_joint_state_controller"/> -->
+        ns="/nimrod" args="joint_base joint0 joint1 joint2 joint3 joint4 joint5 joint6 joint_state_controller"/>
     
 
   <include file="$(find rover_sim)/launch/gazebo.launch">
