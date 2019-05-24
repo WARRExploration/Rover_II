@@ -2,7 +2,7 @@
 <robot name="arm" 
     xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:property name="link0_len" value="0.01" />
+    <xacro:property name="link0_len" value="0.1" />
     <xacro:property name="link0_rad" value="0.1" />
     <xacro:property name="link1_len" value="0.6" />
     <xacro:property name="link1_width" value="0.05" />
@@ -18,8 +18,8 @@
     <xacro:property name="gripper_rad" value="0.01" />
     <xacro:property name="offset_gripper" value="0.01" />
     <xacro:property name="lim_eff" value="300" />
-    <xacro:property name="lim_low" value="-0.78539816339" />
-    <xacro:property name="lim_up" value="0.78539816339" />
+    <xacro:property name="lim_low" value="-1.78539816339" />
+    <xacro:property name="lim_up" value="1.78539816339" />
     <xacro:property name="lim_vel" value="1.571" />
 
     <xacro:macro name="box_inertia" params="m x y z">
@@ -59,7 +59,7 @@
                 <geometry>
                     <cylinder length="${link0_len}" radius="${link0_rad}"/>
                 </geometry>
-                <material name="black"/>
+                <material name="orange"/>
             </visual>
             <inertial>
                 <origin rpy="0 0 0" xyz="0 0 ${link0_len/2}"/>

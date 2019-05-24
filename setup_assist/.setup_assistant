@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: rover_config
+    relative_path: urdf/testarm.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/testarm.srdf
+  CONFIG:
+    author_name: wa.rr@explorati.on
+    author_email: wa.rr@explorati.on
+    generated_timestamp: 1558386894

@@ -19,15 +19,17 @@ joint_base:
   }
   
 joint0:
-  type: effort_controllers/JointPositionController
-  joint: joint0
-  pid: {
-    p: 800.0,
-    i: 500.0,
-    d: 100.0,
-    i_clamp: 50.0,
-    antiwindup: true
-  }
+  type: effort_controllers/JointTrajectoryController
+  joints: 
+    - joint0
+  gains:
+    joint0: {
+      p: 800.0,
+      i: 500.0,
+      d: 100.0,
+      i_clamp: 50.0,
+      antiwindup: true
+    }
   
 joint1:
   type: effort_controllers/JointPositionController

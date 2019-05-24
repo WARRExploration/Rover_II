@@ -1,0 +1,14 @@
+controller_list:
+  - name: fake_nimrod_arm_controller
+    joints:
+      - joint_base
+      - joint0
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+  - name: fake_hand_controller
+    joints:
+      - joint4
+      - joint5
+      - joint6
