@@ -43,7 +43,7 @@
     <xacro:property name="rocker_width" value="0.1" />
     <xacro:property name="rocker_lenght" value="0.7" />
     <xacro:property name="rocker_mass" value="2.0" />
-    <xacro:property name="rocker_offsetZ" value="0.2" />
+    <xacro:property name="rocker_offsetZ" value="0" />
 
     <xacro:property name="camera_size" value="0.05" />
 
@@ -94,40 +94,41 @@
             <origin xyz="0 0 0" />
         </inertial>
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 ${-90 * DEG_TO_RAD}" />
             <geometry>
-                <box size="${base_lenght} ${base_width} ${base_height}" />
+                <mesh filename="package://rover_config/rover_collada/Body_lowPoly.dae"/>
             </geometry>
-            <material name="Blue" />
+            <material name="Black" />
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0" rpy="0 0 ${-90 * DEG_TO_RAD}" />
             <geometry>
-                <box size="${base_lenght} ${base_width} ${base_height}" />
+                <mesh filename="package://rover_config/rover_collada/Body_lowPoly.dae"/>
             </geometry>
+            <material name="Black" />
         </collision>
     </link>
 
-
     <gazebo reference="chassis">
-        <material>Gazebo/White</material>
+        <material>Gazebo/Black</material>
         <turnGravityOff>false</turnGravityOff>
     </gazebo>
 
     <xacro:macro name="rocker" params="side parent translateX translateY translateZ flipY">
         <link name="${side}_rocker">
             <visual>
-                <origin xyz="0 ${flipY * rocker_width / 2} ${-rocker_offsetZ}" rpy="0 0 0"/>
+                <origin xyz="0 0 ${-rocker_offsetZ}" rpy="0 0 ${-90 * DEG_TO_RAD}"/>
                 <geometry>
-                    <box size="${rocker_lenght} ${rocker_width} ${rocker_height}" />
+                    <mesh filename="package://rover_config/rover_collada/Rocker_lowPoly.dae" scale="${flipY} 1 1"/>
                 </geometry>
-                <material name="Red" />
+                <material name="Blue" />
             </visual>
             <collision>
-                <origin xyz="0 ${flipY * rocker_width / 2} ${-rocker_offsetZ}" rpy="0 0 0"/>
+                <origin xyz="0 0 ${-rocker_offsetZ}" rpy="0 0 ${-90 * DEG_TO_RAD}"/>
                 <geometry>
-                    <box size="${rocker_lenght} ${rocker_width} ${rocker_height}" />
+                    <mesh filename="package://rover_config/rover_collada/Rocker_lowPoly.dae" scale="${flipY} 1 1"/>
                 </geometry>
+                <material name="Blue" />
             </collision>
             <inertial>
                 <mass value="${rocker_mass}" />
@@ -142,7 +143,7 @@
             <child link="${side}_rocker"/>
             <axis xyz="0 1 0"/>
             <dynamics damping="0" friction="0.5"/>
-            <limit lower="${-30 * DEG_TO_RAD}" upper="${30 * DEG_TO_RAD}" velocity="1000" effort="1000"/>
+            <limit lower="${-8 * DEG_TO_RAD}" upper="${8 * DEG_TO_RAD}" velocity="1000" effort="1000"/>
         </joint>
 
         <transmission name="${side}_rocker_joint_trans">
@@ -156,12 +157,18 @@
             </actuator>
         </transmission>
 
-        <wheel fb="front" lr="${side}" parent="${side}_rocker" translateX="${rocker_lenght / 2}" translateY="${flipY * rocker_width}" translateZ="${-rocker_offsetZ -rocker_height / 2}" flipY="${flipY}" flipZ="1"/>
-        <wheel fb="back" lr="${side}" parent="${side}_rocker" translateX="${-rocker_lenght / 2}" translateY="${flipY * rocker_width}" translateZ="${-rocker_offsetZ -rocker_height / 2}" flipY="${flipY}" flipZ="-1"/>
+        <wheel fb="front" lr="${side}" parent="${side}_rocker" translateX="0.350" translateY="${flipY * 0.300}" translateZ="-0.100" flipY="${flipY}" flipZ="1"/>
+        <wheel fb="back" lr="${side}" parent="${side}_rocker" translateX="-0.350" translateY="${flipY * 0.300}" translateZ="-0.100" flipY="${flipY}" flipZ="-1"/>
+   
+        <gazebo reference="${side}_rocker">
+            <material>Gazebo/Blue</material>
+            <turnGravityOff>false</turnGravityOff>
+        </gazebo>
+
     </xacro:macro>
 
-    <rocker side="left" parent="chassis" translateX="0" translateY="${base_width / 2}" translateZ="${-base_height / 3}" flipY="1" />
-    <rocker side="right" parent="chassis" translateX="0" translateY="${-base_width / 2}" translateZ="${-base_height / 3}" flipY="-1" />
+    <rocker side="left" parent="chassis" translateX="0" translateY="0" translateZ="0" flipY="1" />
+    <rocker side="right" parent="chassis" translateX="0" translateY="0" translateZ="0" flipY="-1" />
 
     <!-- Camera gazebo sensor -->
 
@@ -173,24 +180,6 @@
     </joint>
 
     <link name="camera_link">
-        <collision>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <geometry>
-                <box size="${camera_size} ${camera_size} ${camera_size}"/>
-            </geometry>
-        </collision>
-        <visual>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <geometry>
-                <box size="${camera_size} ${camera_size} ${camera_size}"/>
-            </geometry>
-            <material name="red"/>
-        </visual>
-        <inertial>
-            <mass value="1e-5" />
-            <origin xyz="0 0 0" rpy="0 0 0"/>
-            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
-        </inertial>
     </link>
 
     <link name="camera_link2">
@@ -207,10 +196,10 @@
         <sensor type="camera" name="camera1">
             <update_rate>30.0</update_rate>
             <camera name="head">
-                <horizontal_fov>1.3962634</horizontal_fov>
+                <horizontal_fov>${45 * DEG_TO_RAD}</horizontal_fov>
                 <image>
-                    <width>800</width>
-                    <height>800</height>
+                    <width>2056</width>
+                    <height>1542</height>
                     <format>R8G8B8</format>
                 </image>
                 <clip>
@@ -223,7 +212,7 @@
                That pixel's noise value is added to each of its color
                channels, which at that point lie in the range [0,1]. -->
                     <mean>0.0</mean>
-                    <stddev>0.007</stddev>
+                    <stddev>0.07</stddev>
                 </noise>
             </camera>
             <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
@@ -233,7 +222,7 @@
                 <imageTopicName>image_raw</imageTopicName>
                 <cameraInfoTopicName>camera_info</cameraInfoTopicName>
                 <frameName>camera_link2</frameName>
-                <hackBaseline>0.07</hackBaseline>
+                <hackBaseline>0.0</hackBaseline>
                 <distortionK1>0.0</distortionK1>
                 <distortionK2>0.0</distortionK2>
                 <distortionK3>0.0</distortionK3>
