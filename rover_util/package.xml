@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>rover_util</name>
+  <version>0.0.0</version>
+  <description>Optional files and utility functions for the rover</description>
+  <maintainer email="exploration@warr.de">WARR Exploration</maintainer>
+  <license>GPLv3</license>
+  <url type="website">http://exploration.warr.de</url>
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>

@@ -280,7 +280,7 @@
                 <updateRate>0.0</updateRate>
                 <cameraName>sensors/camera2</cameraName>
                 <imageTopicName>image_raw</imageTopicName>
-                <cameraInfoTopicName>camera2_info</cameraInfoTopicName>
+                <cameraInfoTopicName>camera_info</cameraInfoTopicName>
                 <frameName>camera2_link2</frameName>
                 <hackBaseline>0.0</hackBaseline>
                 <distortionK1>0.0</distortionK1>

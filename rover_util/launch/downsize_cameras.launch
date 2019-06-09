@@ -1,0 +1,34 @@
+<?xml version="1" encoding="utf-8"?>
+<launch>
+
+  <!-- Launches 2 nodelets, that decrease the picture resolution for two cameras -->
+
+
+<node pkg="nodelet" type="nodelet"
+      args="standalone image_proc/crop_decimate"
+      name="camera1_decimator">
+  <param name="decimation_x" type="int" value="3" />
+  <param name="decimation_y" type="int" value="3" />
+
+  <remap from="camera/image_raw" to="sensors/camera1/image_raw"/>
+  <remap from="camera/image_info" to="sensors/camera1/camera_info"/>
+
+  <remap from="camera_out/image_raw" to="sensors/camera1/image_raw_decimated"/>
+  <remap from="camera_out/image_info" to="sensors/camera1/camera_info_decimated"/>
+</node>
+
+
+
+<node pkg="nodelet" type="nodelet"
+      args="standalone image_proc/crop_decimate"
+      name="camera2_decimator">
+  <param name="decimation_x" type="int" value="3" />
+  <param name="decimation_y" type="int" value="3" />
+
+  <remap from="camera/image_raw" to="sensors/camera2/image_raw"/>
+  <remap from="camera/image_info" to="sensors/camera2/camera_info"/>
+
+  <remap from="camera_out/image_raw" to="sensors/camera2/image_raw_decimated"/>
+  <remap from="camera_out/image_info" to="sensors/camera2/camera_info_decimated"/>
+</node>
+</launch>
