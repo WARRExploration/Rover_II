@@ -127,9 +127,9 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
-#  src/libuavcan/libuavcan/include
-#  src/libuavcan/libuavcan/include/dsdlc_generated
-#  src/libuavcan_linux/include
+  #src/libuavcan/libuavcan/include
+  #src/libuavcan/libuavcan/include/dsdlc_generated
+  #src/libuavcan_linux/include
 )
 
 ## Declare a C++ library
@@ -165,8 +165,7 @@ add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/${PROJECT_N
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
-#  rover_control
-#  uavcan
+  #uavcan
   ${UAVCAN_LIB}
   rt
 )

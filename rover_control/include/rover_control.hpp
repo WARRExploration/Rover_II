@@ -50,6 +50,8 @@ public:
     //int initCAN(const char *ifname, unsigned int *can_id, unsigned int own_id, unsigned int read_timeout_ms);
     //int setSpeed();
     //int getSpeed(unsigned int can_id);
+    double cmd[4];
+    double vel[4];
 
 private:
     int can_socket;
@@ -63,9 +65,8 @@ private:
     hardware_interface::JointStateInterface jnt_state_interface;
     //hardware_interface::PositionJointInterface jnt_pos_interface;
     hardware_interface::VelocityJointInterface jnt_vel_interface;
-    double cmd[4];
+
     double prev_cmd[4];
     double pos[4];
-    double vel[4];
     double eff[4];
 };
