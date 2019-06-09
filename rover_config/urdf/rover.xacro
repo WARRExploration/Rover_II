@@ -174,7 +174,7 @@
 
     <joint name="camera_joint" type="fixed">
         <axis xyz="0 1 0" />
-        <origin xyz="${base_lenght / 2 + 2 * camera_size} 0 ${base_height / 2}" rpy="0 0 0"/>
+        <origin xyz="${base_lenght / 2 + 2 * camera_size} -${base_lenght/5} ${base_height / 2}" rpy="0 0 0"/>
         <parent link="chassis"/>
         <child link="camera_link"/>
     </joint>
@@ -196,7 +196,7 @@
         <sensor type="camera" name="camera1">
             <update_rate>30.0</update_rate>
             <camera name="head">
-                <horizontal_fov>${45 * DEG_TO_RAD}</horizontal_fov>
+                <horizontal_fov>${90 * DEG_TO_RAD}</horizontal_fov>
                 <image>
                     <width>2056</width>
                     <height>1542</height>
@@ -235,7 +235,7 @@
 
     <joint name="camera2_joint" type="fixed">
         <axis xyz="0 1 0" />
-        <origin xyz="${base_lenght / 2 + 2 * camera_size} 0 ${base_height / 2}" rpy="0 0 0"/>
+        <origin xyz="${base_lenght / 2 + 2 * camera_size} ${base_lenght/5} ${base_height / 2}" rpy="0 0 0"/>
         <parent link="chassis"/>
         <child link="camera2_link"/>
     </joint>
@@ -256,7 +256,7 @@
         <sensor type="camera" name="camera2">
             <update_rate>30.0</update_rate>
             <camera name="head">
-                <horizontal_fov>${45 * DEG_TO_RAD}</horizontal_fov>
+                <horizontal_fov>${90 * DEG_TO_RAD}</horizontal_fov>
                 <image>
                     <width>2056</width>
                     <height>1542</height>
