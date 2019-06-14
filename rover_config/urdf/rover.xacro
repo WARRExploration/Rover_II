@@ -94,14 +94,14 @@
             <origin xyz="0 0 0" />
         </inertial>
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 ${-90 * DEG_TO_RAD}" />
+            <origin xyz="0 0 0" rpy="0 0 ${radians(-90)}" />
             <geometry>
                 <mesh filename="package://rover_config/rover_collada/Body_lowPoly.dae"/>
             </geometry>
             <material name="Black" />
         </visual>
         <collision>
-            <origin xyz="0 0 0" rpy="0 0 ${-90 * DEG_TO_RAD}" />
+            <origin xyz="0 0 0" rpy="0 0 ${radians(-90)}" />
             <geometry>
                 <mesh filename="package://rover_config/rover_collada/Body_lowPoly.dae"/>
             </geometry>
@@ -110,7 +110,7 @@
     </link>
 
     <gazebo reference="chassis">
-        <material>Gazebo/Black</material>
+        <!-- <material>Gazebo/Black</material> -->
         <turnGravityOff>false</turnGravityOff>
     </gazebo>
 
@@ -161,7 +161,7 @@
         <wheel fb="back" lr="${side}" parent="${side}_rocker" translateX="-0.350" translateY="${flipY * 0.300}" translateZ="-0.100" flipY="${flipY}" flipZ="-1"/>
    
         <gazebo reference="${side}_rocker">
-            <material>Gazebo/Blue</material>
+            <!-- <material>Gazebo/Blue</material> -->
             <turnGravityOff>false</turnGravityOff>
         </gazebo>
 

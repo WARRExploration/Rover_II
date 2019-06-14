@@ -94,7 +94,7 @@
 
 
         <gazebo reference="${fb}_${lr}_wheel">
-            <material>Gazebo/Red</material>
+            <!-- <material>Gazebo/Red</material> -->
             <turnGravityOff>false</turnGravityOff>
         </gazebo>
 
