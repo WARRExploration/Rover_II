@@ -148,7 +148,7 @@ find_library(UAVCAN_LIB uavcan REQUIRED)
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/${PROJECT_NAME}.cpp)
+add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/${PROJECT_NAME}.cpp src/platform_linux.cpp)
 #add_executable(node src/node.cpp src/platform_linux.cpp)
 
 ## Rename C++ executable without prefix

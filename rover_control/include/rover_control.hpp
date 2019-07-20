@@ -1,3 +1,6 @@
+// Standard Libs
+#include <string>
+
 // ROS Libs
 #include <ros/ros.h>
 
@@ -6,66 +9,61 @@
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/robot_hw.h>
 
+#include <uavcan/uavcan.hpp>
+#include <uavcan_linux/uavcan_linux.hpp>
+#include <uavcan/marshal/types.hpp>
+
 /*
-extern "C" {
-    // Standard libs
-    #include <stdio.h>
-    #include <stdlib.h>
-    #include <unistd.h>
-    #include <string.h>
+ * We're going to use messages of type uavcan.equipment.esc.RPMCommand, so the appropriate header must be included.
+ * Given a data type named X, the header file name would be:
+ *      X.replace('.', '/') + ".hpp"
+ */
+#include <uavcan/equipment/esc/RPMCommand.hpp> // uavcan.equipment.esc.RPMCommand
+#include <uavcan/equipment/esc/Status.hpp> // uavcan.equipment.esc.RPMCommand
 
-    // IO Libs
-    #include <net/if.h>
-    #include <sys/types.h>
-    #include <sys/socket.h>
-    #include <sys/ioctl.h>
+#include "controller_manager/controller_manager.h"
+#include "hardware_interface/actuator_state_interface.h"
+#include <ros/callback_queue.h>
 
-    // CAN libs
-    #include <linux/can.h>
-    #include <linux/can/raw.h>
-}
+/**
+ * These functions are platform dependent, so they are not included in this example.
+ * Refer to the relevant platform documentation to learn how to implement them.
+ */
+extern uavcan::ISystemClock& getSystemClock();
+extern uavcan::ICanDriver& getCanDriver(std::string ifaceName);
 
-// CAN commands
-#define CAN_PING        1
-#define CAN_SET_SPEED   2
-#define CAN_GET_SPEED   3
+/**
+ * Memory pool size largely depends on the number of CAN ifaces and on application's logic.
+ * Please read the documentation for the class uavcan::Node to learn more.
+ */
+constexpr unsigned NodeMemoryPoolSize = 16384;
 
-enum SocketCanStatus
-{
-    STATUS_OK = 0,
-    STATUS_SOCKET_CREATE_ERROR = 1,
-    STATUS_WRITE_ERROR = 2,
-    STATUS_READ_ERROR = 3,
-    STATUS_BIND_ERROR = 4,
-    STATUS_FALSE_ID = 5,
-    STATUS_FALSE_MSG_LEN = 6,
-};
-*/
+typedef uavcan::Node<NodeMemoryPoolSize> Node;
+
 
 class rover_interface : public hardware_interface::RobotHW
 {
 public:
-    rover_interface(const char** joint_names);
-    //virtual ~Motor();
-    //int initCAN(const char *ifname, unsigned int *can_id, unsigned int own_id, unsigned int read_timeout_ms);
-    //int setSpeed();
-    //int getSpeed(unsigned int can_id);
-    double cmd[4];
-    double vel[4];
+    rover_interface(std::string* joint_names, std::string ifaceCAN, int idCAN);
+    int canUpdate();
+    int canPublish();
 
 private:
     int can_socket;
     unsigned int can_timeout;
-    //struct sockaddr_can addr;
-    //struct can_frame frame;
-    //struct ifreq ifr;
     unsigned int own_id;
     unsigned int can_ids[4];
+    std::string can_interface;
+    static Node& get_uavcan_node(std::string ifaceCAN);
+    uavcan::Subscriber<uavcan::equipment::esc::Status>* esc_status_sub;
+    uavcan::Publisher<uavcan::equipment::esc::RPMCommand>* kv_pub;
 
     hardware_interface::JointStateInterface jnt_state_interface;
     //hardware_interface::PositionJointInterface jnt_pos_interface;
     hardware_interface::VelocityJointInterface jnt_vel_interface;
 
+    double cmd[4];
+    double vel[4];
     double prev_cmd[4];
     double pos[4];
     double eff[4];
