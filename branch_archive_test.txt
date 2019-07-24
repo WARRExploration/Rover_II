@@ -1,0 +1,17 @@
+This is a test branch to show how to delete unused branches
+without removing them from the history.
+
+The unwanted branch is tagged as 'archive/branch_name', then deleted.
+This way it is possible to restore the branch later and retrieve the commits.
+
+Workflow:
+git tag archive/sprintjuly2010 sprintjuly2010
+git branch -d sprintjuly2010
+git push origin :sprintjuly2010
+git push --tags
+
+To restore a branch:
+git checkout -b sprintjuly2010 archive/sprintjuly2010
+
+I followed this example:
+http://www.aaronwest.net/blog/index.cfm/2011/6/7/Git-Workflows-Archiving-Old-Branches
