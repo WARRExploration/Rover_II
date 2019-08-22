@@ -1,0 +1,1038 @@
+Panels:
+  - Class: rviz/Displays
+    Help Height: 78
+    Name: Displays
+    Property Tree Widget:
+      Expanded:
+        - /Global Options1
+        - /Status1
+        - /RobotModel1
+        - /TF1
+        - /Camera1
+        - /Camera1/Visibility1
+      Splitter Ratio: 0.5
+    Tree Height: 713
+  - Class: rviz/Selection
+    Name: Selection
+  - Class: rviz/Tool Properties
+    Expanded:
+      - /2D Pose Estimate1
+      - /2D Nav Goal1
+      - /Publish Point1
+    Name: Tool Properties
+    Splitter Ratio: 0.5886790156364441
+  - Class: rviz/Views
+    Expanded:
+      - /Current View1
+    Name: Views
+    Splitter Ratio: 0.5
+  - Class: rviz/Time
+    Experimental: false
+    Name: Time
+    SyncMode: 0
+    SyncSource: Camera
+Preferences:
+  PromptSaveOnExit: true
+Toolbars:
+  toolButtonStyle: 2
+Visualization Manager:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Cell Size: 1
+      Class: rviz/Grid
+      Color: 160; 160; 164
+      Enabled: true
+      Line Style:
+        Line Width: 0.029999999329447746
+        Value: Lines
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Value: true
+    - Alpha: 0.5
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        -1-1_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_10:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_11:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_12:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_13:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_14:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_15:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_16:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_17:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_18:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_19:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_20:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_6:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_7:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_8:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -1-1_9:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_10:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_11:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_12:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_13:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_14:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_15:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_16:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_17:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_18:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_19:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_20:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_6:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_7:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_8:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        -11_9:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_10:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_11:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_12:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_13:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_14:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_15:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_16:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_17:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_18:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_19:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_20:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_6:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_7:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_8:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        1-1_9:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_0:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_10:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_11:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_12:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_13:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_14:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_15:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_16:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_17:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_18:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_19:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_20:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_6:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_7:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_8:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        11_9:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        back_left_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        back_right_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_link2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        chassis:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_left_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        front_right_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_rocker:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_rocker:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+      Name: RobotModel
+      Robot Description: robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
+    - Class: rviz/TF
+      Enabled: true
+      Frame Timeout: 15
+      Frames:
+        -1-1_0:
+          Value: true
+        -1-1_1:
+          Value: true
+        -1-1_10:
+          Value: true
+        -1-1_11:
+          Value: true
+        -1-1_12:
+          Value: true
+        -1-1_13:
+          Value: true
+        -1-1_14:
+          Value: true
+        -1-1_15:
+          Value: true
+        -1-1_16:
+          Value: true
+        -1-1_17:
+          Value: true
+        -1-1_18:
+          Value: true
+        -1-1_19:
+          Value: true
+        -1-1_2:
+          Value: true
+        -1-1_20:
+          Value: true
+        -1-1_3:
+          Value: true
+        -1-1_4:
+          Value: true
+        -1-1_5:
+          Value: true
+        -1-1_6:
+          Value: true
+        -1-1_7:
+          Value: true
+        -1-1_8:
+          Value: true
+        -1-1_9:
+          Value: true
+        -11_0:
+          Value: true
+        -11_1:
+          Value: true
+        -11_10:
+          Value: true
+        -11_11:
+          Value: true
+        -11_12:
+          Value: true
+        -11_13:
+          Value: true
+        -11_14:
+          Value: true
+        -11_15:
+          Value: true
+        -11_16:
+          Value: true
+        -11_17:
+          Value: true
+        -11_18:
+          Value: true
+        -11_19:
+          Value: true
+        -11_2:
+          Value: true
+        -11_20:
+          Value: true
+        -11_3:
+          Value: true
+        -11_4:
+          Value: true
+        -11_5:
+          Value: true
+        -11_6:
+          Value: true
+        -11_7:
+          Value: true
+        -11_8:
+          Value: true
+        -11_9:
+          Value: true
+        1-1_0:
+          Value: true
+        1-1_1:
+          Value: true
+        1-1_10:
+          Value: true
+        1-1_11:
+          Value: true
+        1-1_12:
+          Value: true
+        1-1_13:
+          Value: true
+        1-1_14:
+          Value: true
+        1-1_15:
+          Value: true
+        1-1_16:
+          Value: true
+        1-1_17:
+          Value: true
+        1-1_18:
+          Value: true
+        1-1_19:
+          Value: true
+        1-1_2:
+          Value: true
+        1-1_20:
+          Value: true
+        1-1_3:
+          Value: true
+        1-1_4:
+          Value: true
+        1-1_5:
+          Value: true
+        1-1_6:
+          Value: true
+        1-1_7:
+          Value: true
+        1-1_8:
+          Value: true
+        1-1_9:
+          Value: true
+        11_0:
+          Value: true
+        11_1:
+          Value: true
+        11_10:
+          Value: true
+        11_11:
+          Value: true
+        11_12:
+          Value: true
+        11_13:
+          Value: true
+        11_14:
+          Value: true
+        11_15:
+          Value: true
+        11_16:
+          Value: true
+        11_17:
+          Value: true
+        11_18:
+          Value: true
+        11_19:
+          Value: true
+        11_2:
+          Value: true
+        11_20:
+          Value: true
+        11_3:
+          Value: true
+        11_4:
+          Value: true
+        11_5:
+          Value: true
+        11_6:
+          Value: true
+        11_7:
+          Value: true
+        11_8:
+          Value: true
+        11_9:
+          Value: true
+        All Enabled: true
+        ar_marker_0:
+          Value: true
+        ar_marker_1:
+          Value: true
+        ar_marker_12:
+          Value: true
+        ar_marker_251:
+          Value: true
+        ar_marker_3:
+          Value: true
+        back_left_wheel:
+          Value: true
+        back_right_wheel:
+          Value: true
+        base_link:
+          Value: true
+        camera_link:
+          Value: true
+        camera_link2:
+          Value: true
+        chassis:
+          Value: true
+        front_left_wheel:
+          Value: true
+        front_right_wheel:
+          Value: true
+        left_rocker:
+          Value: true
+        odom:
+          Value: true
+        right_rocker:
+          Value: true
+      Marker Scale: 0.20000000298023224
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Tree:
+        base_link:
+          chassis:
+            camera_link:
+              camera_link2:
+                ar_marker_0:
+                  {}
+                ar_marker_1:
+                  {}
+                ar_marker_12:
+                  {}
+                ar_marker_251:
+                  {}
+                ar_marker_3:
+                  {}
+            left_rocker:
+              back_left_wheel:
+                1-1_0:
+                  {}
+                1-1_1:
+                  {}
+                1-1_10:
+                  {}
+                1-1_11:
+                  {}
+                1-1_12:
+                  {}
+                1-1_13:
+                  {}
+                1-1_14:
+                  {}
+                1-1_15:
+                  {}
+                1-1_16:
+                  {}
+                1-1_17:
+                  {}
+                1-1_18:
+                  {}
+                1-1_19:
+                  {}
+                1-1_2:
+                  {}
+                1-1_20:
+                  {}
+                1-1_3:
+                  {}
+                1-1_4:
+                  {}
+                1-1_5:
+                  {}
+                1-1_6:
+                  {}
+                1-1_7:
+                  {}
+                1-1_8:
+                  {}
+                1-1_9:
+                  {}
+              front_left_wheel:
+                11_0:
+                  {}
+                11_1:
+                  {}
+                11_10:
+                  {}
+                11_11:
+                  {}
+                11_12:
+                  {}
+                11_13:
+                  {}
+                11_14:
+                  {}
+                11_15:
+                  {}
+                11_16:
+                  {}
+                11_17:
+                  {}
+                11_18:
+                  {}
+                11_19:
+                  {}
+                11_2:
+                  {}
+                11_20:
+                  {}
+                11_3:
+                  {}
+                11_4:
+                  {}
+                11_5:
+                  {}
+                11_6:
+                  {}
+                11_7:
+                  {}
+                11_8:
+                  {}
+                11_9:
+                  {}
+            right_rocker:
+              back_right_wheel:
+                -1-1_0:
+                  {}
+                -1-1_1:
+                  {}
+                -1-1_10:
+                  {}
+                -1-1_11:
+                  {}
+                -1-1_12:
+                  {}
+                -1-1_13:
+                  {}
+                -1-1_14:
+                  {}
+                -1-1_15:
+                  {}
+                -1-1_16:
+                  {}
+                -1-1_17:
+                  {}
+                -1-1_18:
+                  {}
+                -1-1_19:
+                  {}
+                -1-1_2:
+                  {}
+                -1-1_20:
+                  {}
+                -1-1_3:
+                  {}
+                -1-1_4:
+                  {}
+                -1-1_5:
+                  {}
+                -1-1_6:
+                  {}
+                -1-1_7:
+                  {}
+                -1-1_8:
+                  {}
+                -1-1_9:
+                  {}
+              front_right_wheel:
+                -11_0:
+                  {}
+                -11_1:
+                  {}
+                -11_10:
+                  {}
+                -11_11:
+                  {}
+                -11_12:
+                  {}
+                -11_13:
+                  {}
+                -11_14:
+                  {}
+                -11_15:
+                  {}
+                -11_16:
+                  {}
+                -11_17:
+                  {}
+                -11_18:
+                  {}
+                -11_19:
+                  {}
+                -11_2:
+                  {}
+                -11_20:
+                  {}
+                -11_3:
+                  {}
+                -11_4:
+                  {}
+                -11_5:
+                  {}
+                -11_6:
+                  {}
+                -11_7:
+                  {}
+                -11_8:
+                  {}
+                -11_9:
+                  {}
+        odom:
+          {}
+      Update Interval: 0
+      Value: true
+    - Class: rviz/Camera
+      Enabled: true
+      Image Rendering: background and overlay
+      Image Topic: /sensors/camera1/image_raw
+      Name: Camera
+      Overlay Alpha: 0.5
+      Queue Size: 2
+      Transport Hint: raw
+      Unreliable: false
+      Value: true
+      Visibility:
+        Grid: true
+        Marker: true
+        RobotModel: true
+        TF: false
+        Value: true
+      Zoom Factor: 1
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /visualization_marker
+      Name: Marker
+      Namespaces:
+        basic_shapes: true
+      Queue Size: 100
+      Value: true
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: base_link
+    Frame Rate: 30
+  Name: root
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2617993950843811
+      Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 6.303757190704346
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.05999999865889549
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0
+        Y: 0
+        Z: 0
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05000000074505806
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.009999999776482582
+      Pitch: 0.6953970193862915
+      Target Frame: <Fixed Frame>
+      Value: Orbit (rviz)
+      Yaw: 0.5135819911956787
+    Saved: ~
+Window Geometry:
+  Camera:
+    collapsed: false
+  Displays:
+    collapsed: false
+  Height: 1016
+  Hide Left Dock: false
+  Hide Right Dock: false
+  QMainWindow State: 000000ff00000000fd00000004000000000000015600000354fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003d00000354000000c900fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000035100000354fc0200000004fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003d00000110000000a400fffffffb0000000c00430061006d00650072006101000001530000023e0000001600fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000073d00000044fc0100000002fb0000000800540069006d006501000000000000073d000002eb00fffffffb0000000800540069006d006501000000000000045000000000000000000000028a0000035400000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  Selection:
+    collapsed: false
+  Time:
+    collapsed: false
+  Tool Properties:
+    collapsed: false
+  Views:
+    collapsed: false
+  Width: 1853
+  X: 67
+  Y: 27

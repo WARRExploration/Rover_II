@@ -3,7 +3,7 @@
 <robot name="wheel" 
     xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <xacro:property name="wheel_radius" value="0.15" />
+    <xacro:property name="wheel_radius" value="0.14" />
     <xacro:property name="wheel_width" value="0.2" />
     <xacro:property name="wheel_mass" value="1" />
     <!-- in kg -->
@@ -20,19 +20,19 @@
     <xacro:macro name="grouser" params="links_qty max_qty parent flipY flipZ">
 
         <link name="${flipY}${flipZ}_${links_qty}">
-            <visual>
-                <origin xyz="0 ${flipY * wheel_width / 2} ${wheel_radius}" rpy="0 0 ${flipY * flipZ * 30 * DEG_TO_RAD}"/>
+            <!-- <visual>
+                <origin xyz="0 0 ${wheel_radius - 0.025}" rpy="0 0 ${flipY * flipZ * 30 * DEG_TO_RAD}"/>
                 <geometry>
                     <box size="0.01 ${wheel_width} 0.05"/>
                 </geometry>
-                <material name="Red" />
-            </visual>
+                <material name="Black" />
+            </visual> -->
             <collision>
-                <origin xyz="0 ${flipY * wheel_width / 2} ${wheel_radius}" rpy="0 0 ${flipY * flipZ * 30 * DEG_TO_RAD}"/>
+                <origin xyz="0 0 ${wheel_radius - 0.025}" rpy="0 0 ${flipY * flipZ * 30 * DEG_TO_RAD}"/>
                 <geometry>
                     <box size="0.01 ${wheel_width} 0.05"/>
                 </geometry>
-                <material name="Red" />
+                <material name="Black" />
             </collision>
             <inertial>
                 <mass value="0.01" />
@@ -49,11 +49,11 @@
 
 
         <gazebo reference="${flipY}${flipZ}_${links_qty}">
-            <mu1 value="10"/>
-            <mu2 value="0.1" />
+            <mu1 value="100000"/>
+            <mu2 value="0.25" />
             <!-- <mu2 value="1" /> -->
-            <!-- <fdir1 value="0.7071 ${-flipY * flipZ * 0.7071} 0" /> -->
-            <fdir1 value="1 0 0" />
+            <fdir1 value="0.7071 ${-flipY * flipZ * 0.7071} 0" />
+            <!-- <fdir1 value="1 0 0" /> -->
 
             <kp value="10000000.0" />
             <kd value="1.0" />
@@ -72,17 +72,17 @@
         <!-- fb: front, back; lr: left right -->
         <link name="${fb}_${lr}_wheel">
             <visual>
-                <origin xyz="0 ${flipY * wheel_width / 2} 0" rpy="${flipY*M_PI/2} 0 0"/>
+                <origin xyz="0 0 0" rpy="0 0 ${-90 * DEG_TO_RAD}"/>
                 <!-- make sure the wheel is in the correct position -->
                 <geometry>
-                    <cylinder length="${wheel_width}" radius="${wheel_radius}" />
+                    <mesh filename="package://rover_config/rover_collada/Wheel_lowPoly.dae" scale="${-flipY * flipZ} 1 1"/>
                 </geometry>
-                <material name="Black" />
+                <material name="Red" />
             </visual>
             <collision>
-                <origin xyz="0 ${flipY * wheel_width / 2} 0" rpy="${flipY*M_PI/2} 0 0"/>
+                <origin xyz="0 0 0" rpy="${flipY*M_PI/2} 0 0"/>
                 <geometry>
-                    <cylinder length="${wheel_width}" radius="${wheel_radius}" />
+                    <cylinder length="${wheel_width}" radius="${wheel_radius - 0.025}" />
                 </geometry>
             </collision>
             <inertial>
@@ -94,7 +94,7 @@
 
 
         <gazebo reference="${fb}_${lr}_wheel">
-            <material>Gazebo/Blue</material>
+            <!-- <material>Gazebo/Red</material> -->
             <turnGravityOff>false</turnGravityOff>
         </gazebo>
 
