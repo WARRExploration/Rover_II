@@ -1,3 +1,4 @@
+#!/usr/bin/python3.6
 '''
 Dummy python script that binds to an already existing serial socketCAN interface
 and listens to any data on the CAN bus.

@@ -1,28 +1,36 @@
 <launch>
 
-  <arg name="model" default="$(find rover_config)/urdf/rover.xacro"/>
-  <param name="robot_description" command="xacro --inorder '$(arg model)'" />
+    <arg name="model" default="$(find rover_config)/urdf/rover.xacro"/>
+    <param name="robot_description" command="xacro --inorder '$(arg model)'" />
 
-  <node name="motor_control" pkg="rover_control" type="rover_control_node" respawn="false"
-    output="screen" />
-	
-  <!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam command="load" file="$(find rover_control)/config/joints.yaml" ns="rover_joint_state_controller" />
-  <rosparam command="load" file="$(find rover_control)/config/diffdrive.yaml" ns="rover_diff_drive_controller" />
+    <node name="motor_control" pkg="rover_control" type="rover_control_node" respawn="false" output="screen" />
 
-  <!-- load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="rover_joint_state_controller rover_diff_drive_controller" />
+    <!-- Load joint controller configurations from YAML file to parameter server -->
+    <rosparam command="load" file="$(find rover_control)/config/joints.yaml" ns="rover_joint_state_controller" />
+    <rosparam command="load" file="$(find rover_control)/config/diffdrive.yaml" ns="rover_diff_drive_controller" />
 
-  <remap from="/cmd_vel" to="/rover_diff_drive_controller/cmd_vel"/>
+    <!-- load the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="rover_joint_state_controller rover_diff_drive_controller" />
 
-  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering" />
+    <remap from="/cmd_vel" to="/rover_diff_drive_controller/cmd_vel"/>
 
-  <!-- convert joint states to TF transforms for rviz, etc
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
-    respawn="false" output="screen">
+    <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering" />
+
+    <node name="joy" pkg="joy" type="joy_node" output="screen">
+        <param name="autorepeat_rate" value="20"/>
+        <param name="dev" value="/dev/input/js0"/>
+    </node>
+
+    <node name="teleop_twist_joy" pkg="teleop_twist_joy" type="teleop_node" output="screen">
+        <param name="enable_turbo_button" value="1"/>
+        <param name="scale_linear_turbo" value="2"/>
+        <param name="scale_angular" value="2"/>
+    </node>
+
+    <!-- convert joint states to TF transforms for rviz, etc
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
     <remap from="/joint_states" to="/rrbot/joint_states" />
   </node>
 -->
-  
+
 </launch>

@@ -1,8 +1,9 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 2.8)
 project(rover_control)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+#add_compile_options(-std=c++11)
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -std=c++11")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -13,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   joint_state_controller
   robot_state_publisher
   roscpp
+  rospy
 )
 
 ## System dependencies are found with CMake's conventions
@@ -108,25 +110,35 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES rover_control
 #  CATKIN_DEPENDS controller_manager joint_state_controller robot_state_publisher
-  DEPENDS system_lib
+#  DEPENDS system_lib
 )
 
 ###########
 ## Build ##
 ###########
+## Include the Libuavcan CMake subproject
+#add_subdirectory(
+#    src/libuavcan_linux                             # Path to the Libuavcan repository, modify accordingly
+#    ${CMAKE_BINARY_DIR}/libuavcan                   # This path can be changed arbitrarily
+#)
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  #src/libuavcan/libuavcan/include
+  #src/libuavcan/libuavcan/include/dsdlc_generated
+  #src/libuavcan_linux/include
 )
 
 ## Declare a C++ library
-add_library(${PROJECT_NAME}
+#add_library(${PROJECT_NAME}
   #src/${PROJECT_NAME}/rover_control.cpp
-  src/rover_control.cpp
-)
+#  src/rover_control.cpp
+#)
+
+find_library(UAVCAN_LIB uavcan REQUIRED)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -136,7 +148,8 @@ add_library(${PROJECT_NAME}
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp)
+add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/${PROJECT_NAME}.cpp src/platform_linux.cpp)
+#add_executable(node src/node.cpp src/platform_linux.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -147,13 +160,18 @@ add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 #add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(${PROJECT_NAME}_node rover_control)
+#add_dependencies(${PROJECT_NAME}_node rover_control)
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
-  rover_control
+  #uavcan
+  ${UAVCAN_LIB}
+  rt
 )
+#target_link_libraries(node ${UAVCAN_LIB} rt)
+
+
 
 #############
 ## Install ##
