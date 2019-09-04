@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 
     std::string joints[] = {"front_left_wheel_joint", "back_left_wheel_joint", "front_right_wheel_joint", "back_right_wheel_joint"};
     int idCAN = 123;
-    std::string ifaceCAN = "vcan0";
+    std::string ifaceCAN = "slcan0";
 
     ROS_INFO("CAN ID: %d", idCAN);
     ROS_INFO_STREAM("CAN interface: " << ifaceCAN);
