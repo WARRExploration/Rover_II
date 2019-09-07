@@ -164,14 +164,17 @@ add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp src/${PROJECT_N
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
-  ${catkin_LIBRARIES}
-  #uavcan
-  ${UAVCAN_LIB}
-  rt
+${catkin_LIBRARIES}
+#uavcan
+${UAVCAN_LIB}
+rt
 )
 #target_link_libraries(node ${UAVCAN_LIB} rt)
 
-
+add_executable(${PROJECT_NAME}_arm_node src/${PROJECT_NAME}_arm_node.cpp src/${PROJECT_NAME}_arm.cpp)
+target_link_libraries(${PROJECT_NAME}_arm_node
+${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
