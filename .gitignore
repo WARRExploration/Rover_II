@@ -50,5 +50,8 @@ qtcreator-*
 # Catkin custom files
 CATKIN_IGNORE
 
+# Linux directory config
+.directory
+
 #vscode
 .vscode/*
