@@ -31,56 +31,29 @@ rover_interface::rover_interface(std::string ifaceCAN)
     rfilter.can_mask = CAN_EFF_MASK;
     setsockopt(can_socket, SOL_CAN_RAW, CAN_RAW_FILTER, &rfilter, sizeof(rfilter));
 
-    hardware_interface::JointStateHandle state_handle("joint1", &pos, &vel, &eff);
-    jnt_state_interface.registerHandle(state_handle);
-    registerInterface(&jnt_state_interface);
+    // Motor 1
+    motors[0] = rover_trinamic_stepper("joint1", can_socket, &jnt_state_interface, &jnt_pos_interface);
+    rover_trinamic_stepper::properties props1 = rover_trinamic_stepper::properties(TMCL_MVP, TMCL_GAP, 200, 256, 0x00)
+    motors[0].init(rover_trinamic_stepper::properties)
 
-    // connect and register the joint velocity interface
-    hardware_interface::JointHandle joint_handle(state_handle, &cmd);
-    jnt_pos_interface.registerHandle(joint_handle);
+    // TODO more motors & inits
+
+    registerInterface(&jnt_state_interface);
     registerInterface(&jnt_pos_interface);
 }
 
-int rover_interface::canUpdate()
+int rover_interface::receive()
 {
-    struct can_frame frame;
-
-    frame.can_id = 1;
-    frame.can_dlc = 8;
-    frame.data[0] = 0x06;
-    frame.data[1] = 0x01;
-    frame.data[2] = 0x00;
-    frame.data[3] = 0x00;
-    frame.data[4] = 0x00;
-    frame.data[5] = 0x00;
-    frame.data[6] = 0x00;
-    ::write(can_socket, &frame, sizeof(struct can_frame));
-
-    /* Read a message back from the CAN bus */
-    recv(can_socket, &frame, sizeof(frame), NULL);
-
-    pos = ((double)ntohl(*(uint32_t *)(frame.data + 3))) / (256 * 200) * 2 * M_PI;
+    for(rover_motor motor:motors){
+        motor.receive();
+    }
     return 0;
 }
 
-int rover_interface::canPublish()
+int rover_interface::send()
 {
-    struct can_frame frame;
-
-    double new_cmd = cmd / (2 * M_PI) * (256 * 200);
-    
-    uint32_t tmp = new_cmd;
-    tmp = htonl(tmp);
-
-    frame.can_id = 1;
-    frame.can_dlc = 8;
-    frame.data[0] = 0x04;
-    frame.data[1] = 0x00;
-    frame.data[2] = 0x00;
-    *(uint32_t*)&frame.data[3] = tmp;
-    ::write(can_socket, &frame, sizeof(struct can_frame));
-
-    recv(can_socket, &frame, sizeof(frame), NULL);
-
+    for(rover_motor motor:motors){
+        motor.send();
+    }
     return 0;
 }

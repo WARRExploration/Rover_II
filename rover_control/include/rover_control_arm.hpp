@@ -1,3 +1,5 @@
+#pragma once
+
 // Standard Libs
 #include <string>
 
@@ -33,22 +35,20 @@ extern "C"
 #include <linux/can/raw.h>
 }
 
+// motors
+#include <rover_trinamic_stepper.hpp>
+
 class rover_interface : public hardware_interface::RobotHW
 {
 public:
     rover_interface(std::string ifaceCAN);
-    int canUpdate();
-    int canPublish();
+    int receive();
+    int send();
 
 private:
-    int can_socket;
-
     hardware_interface::JointStateInterface jnt_state_interface;
     //hardware_interface::PositionJointInterface jnt_pos_interface;
     hardware_interface::PositionJointInterface jnt_pos_interface;
 
-    double cmd;
-    double vel;
-    double pos;
-    double eff;
+    rover_motor motors[1];
 };
