@@ -162,7 +162,7 @@
 
         <joint name="pre_camera_joint" type="fixed">
             <axis xyz="0 1 0" />
-            <origin xyz="${base_lenght / 2 + 2 * camera_size} 0 ${base_height / 2}" rpy="0 0.4 0"/>
+            <origin xyz="-0.3 0 0.9" rpy="0 0.4 0"/>
             <parent link="chassis"/>
             <child link="pre_camera_link"/>
         </joint>
