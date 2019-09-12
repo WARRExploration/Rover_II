@@ -1,24 +1,24 @@
 #include <rover_motor.hpp>
 
 //Opcodes of all TMCL commands that can be used in direct mode
-#define TMCL_ROR 1
-#define TMCL_ROL 2
-#define TMCL_MST 3
-#define TMCL_MVP 4
-#define TMCL_SAP 5
-#define TMCL_GAP 6
-#define TMCL_STAP 7
-#define TMCL_RSAP 8
-#define TMCL_SGP 9
-#define TMCL_GGP 10
-#define TMCL_STGP 11
-#define TMCL_RSGP 12
-#define TMCL_RFS 13
-#define TMCL_SIO 14
-#define TMCL_GIO 15
-#define TMCL_SCO 30
-#define TMCL_GCO 31
-#define TMCL_CCO 32
+#define TMCL_ROR 1 //rotate right parameter motornumber, velocity
+#define TMCL_ROL 2 //rotate left param: mnum, velocity
+#define TMCL_MST 3 //stop motor movement
+#define TMCL_MVP 4 //move to position, type ABS|REL|COORD, params: mnum, position|offset
+#define TMCL_SAP 5 //set axis parameter, params: parameter, mnum, value
+#define TMCL_GAP 6 //get axis paramter
+#define TMCL_STAP 7 
+#define TMCL_RSAP 8 
+#define TMCL_SGP 9 //set global parameter
+#define TMCL_GGP 10 //get global paramter
+#define TMCL_STGP 11 //store global paramter
+#define TMCL_RSGP 12 //restore global paramter
+#define TMCL_RFS 13 //reference search
+#define TMCL_SIO 14 //set digital output to specified value
+#define TMCL_GIO 15 //get value of analog/digital input
+#define TMCL_SCO 30 //set coordinate param: coordinate_number, motor_number, position
+#define TMCL_GCO 31 //get coordinate param: coordinate number, motor number
+#define TMCL_CCO 32 //capture coordinate
 
 //Opcodes of TMCL control functions (to be used to run or abort a TMCL program in the module)
 #define TMCL_APPL_STOP 128
