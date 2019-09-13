@@ -1,6 +1,9 @@
 #include <rover_motor.hpp>
-
-rover_motor::rover_motorrover_motor(std::string joint_name, int can_socket, 
+rover_motor::rover_motor()
+{
+    //do nothing
+}
+rover_motor::rover_motor(std::string joint_name, int can_socket, 
     hardware_interface::JointStateInterface *jnt_state_interface, 
     hardware_interface::PositionJointInterface *jnt_pos_interface)
 {

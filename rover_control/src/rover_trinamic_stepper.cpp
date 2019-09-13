@@ -1,11 +1,15 @@
 # include <rover_trinamic_stepper.hpp>
 
+rover_trinamic_stepper::rover_trinamic_stepper(){
+    //do absolutely nothing
+}
+
 rover_trinamic_stepper::rover_trinamic_stepper(std::string joint_name, int can_socket, 
     hardware_interface::JointStateInterface *jnt_state_interface, 
     hardware_interface::PositionJointInterface *jnt_pos_interface) 
     : rover_motor(joint_name, can_socket, jnt_state_interface, jnt_pos_interface)
 {
-    // Do nothing for now
+    this->can_socket = can_socket;
 }
 
 int rover_trinamic_stepper::init(struct properties props){
@@ -25,7 +29,7 @@ int rover_trinamic_stepper::receive()
     frame.data[4] = 0x00;
     frame.data[5] = 0x00;
     frame.data[6] = 0x00;
-    ::write(can_socket, &frame, sizeof(struct can_frame));
+    ::write(can_socket, &frame, sizeof(frame));
 
     /* Read a message back from the CAN bus */
     recv(can_socket, &frame, sizeof(frame), NULL);

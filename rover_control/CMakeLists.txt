@@ -171,7 +171,11 @@ rt
 )
 #target_link_libraries(node ${UAVCAN_LIB} rt)
 
-add_executable(${PROJECT_NAME}_arm_node src/${PROJECT_NAME}_arm_node.cpp src/${PROJECT_NAME}_arm.cpp)
+add_executable(${PROJECT_NAME}_arm_node src/${PROJECT_NAME}_arm_node.cpp 
+src/rover_interface_trinamic.cpp
+src/rover_trinamic_stepper.cpp
+src/rover_motor.cpp
+)
 target_link_libraries(${PROJECT_NAME}_arm_node
 ${catkin_LIBRARIES}
 )

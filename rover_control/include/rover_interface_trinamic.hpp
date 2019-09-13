@@ -38,17 +38,19 @@ extern "C"
 // motors
 #include <rover_trinamic_stepper.hpp>
 
-class rover_interface : public hardware_interface::RobotHW
+class rover_interface_trinamic : public hardware_interface::RobotHW
 {
 public:
-    rover_interface(std::string ifaceCAN);
+    rover_interface_trinamic(std::string ifaceCAN);
     int receive();
     int send();
 
 private:
+    int can_socket;
+
     hardware_interface::JointStateInterface jnt_state_interface;
     //hardware_interface::PositionJointInterface jnt_pos_interface;
     hardware_interface::PositionJointInterface jnt_pos_interface;
 
-    rover_motor motors[1];
+    rover_trinamic_stepper motors[5];
 };

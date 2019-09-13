@@ -15,6 +15,7 @@
 class rover_motor
 {
 public:
+    rover_motor();
     rover_motor(std::string joint_name, int can_socket, 
         hardware_interface::JointStateInterface *jnt_state_interface, 
         hardware_interface::PositionJointInterface *jnt_pos_interface);
@@ -22,9 +23,7 @@ public:
     virtual int send() = 0;
     virtual int receive() = 0;
 
-private:
     int can_socket;
-ri
     double cmd;
     double vel;
     double pos;

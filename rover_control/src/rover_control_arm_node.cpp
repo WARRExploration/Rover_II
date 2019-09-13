@@ -2,7 +2,7 @@
 #include <cstdlib>
 #include <math.h>
 #include <unistd.h>
-#include <rover_control_arm.hpp>
+#include <rover_interface_trinamic.hpp>
 
 int main(int argc, char** argv)
 {
@@ -19,7 +19,7 @@ int main(int argc, char** argv)
     std::string ifaceCAN = "slcan0";
 
     ROS_INFO_STREAM("CAN interface: " << ifaceCAN);
-    rover_interface ri(ifaceCAN);
+    rover_interface_trinamic ri(ifaceCAN);
 
     /*
      * Declare controller_manager responsible for all controllers that drive motors
@@ -37,12 +37,12 @@ int main(int argc, char** argv)
         ros::Duration d = ros::Time::now() - ts;
         ts = ros::Time::now();
 
-        const int res = ri.canUpdate();
+        const int res = ri.receive();
         /*
          * Update controller manager values
          */
         cm.update(ts, d);
-        const int pub_res = ri.canPublish();
+        const int pub_res = ri.send();
         
         rate.sleep();
     }

@@ -1,4 +1,6 @@
 #include <rover_motor.hpp>
+#include <arpa/inet.h>
+#include <linux/can.h>
 
 //Opcodes of all TMCL commands that can be used in direct mode
 #define TMCL_ROR 1 //rotate right parameter motornumber, velocity
@@ -35,6 +37,9 @@
 #define RFS_STOP 1
 #define RFS_STATUS 2
 
+//Options for SAP command
+#define MSR 140 //microstep resolution (0 (full step) - 8 (256 steps)) 2^n
+
 // Booleans
 #define FALSE 0
 #define TRUE 1
@@ -42,13 +47,10 @@
 class rover_trinamic_stepper : public rover_motor
 {
 public:
+    rover_trinamic_stepper();
     rover_trinamic_stepper(std::string joint_name, int can_socket, 
         hardware_interface::JointStateInterface *jnt_state_interface, 
         hardware_interface::PositionJointInterface *jnt_pos_interface);
-
-    int init(struct properties props);
-    int receive();
-    int send();
 
     struct properties {
         __uint8_t send_id;
@@ -57,15 +59,19 @@ public:
         __uint8_t microsteps;
         __uint8_t bank;
 
+        properties(){}
         properties(__uint8_t send_id, __uint8_t receive_id, __uint8_t steps, __uint8_t microsteps, __uint8_t bank){
             this->send_id = send_id;
             this->receive_id = receive_id;
-            this->steps = steps
+            this->steps = steps;
             this->microsteps = microsteps;
             this->bank = bank;
         }
     };
 
+    int init(struct properties props);
+    int receive();
+    int send();
 private:
     struct properties props;
 };
